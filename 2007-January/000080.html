@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Whirl2OA
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Whirl2OA&In-Reply-To=%3C767A0FAD-73F1-4C24-995A-DE2BCEFC3258%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000079.html">
+   <LINK REL="Next"  HREF="000081.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Whirl2OA</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Whirl2OA&In-Reply-To=%3C767A0FAD-73F1-4C24-995A-DE2BCEFC3258%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] Whirl2OA">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Wed Jan 24 23:57:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000079.html">[Openanalysis-dev] &quot;Michelle Strout&quot; &lt;mstrout at cs.colostate.edu&gt;,	&quot;hovland at mcs.anl.gov&quot; &lt;hovland at mcs.anl.gov&gt;, ,	&lt;priyadarshini.malusare at gmail.com&gt;
+</A></li>
+        <LI>Next message: <A HREF="000081.html">[Openanalysis-dev] Documentation development underway
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#80">[ date ]</a>
+              <a href="thread.html#80">[ thread ]</a>
+              <a href="subject.html#80">[ subject ]</a>
+              <a href="author.html#80">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I recently had Luis put all of the Open64IRInterface stuff into a  
+standalone package that builds into a library.  I just made UseOA- 
+Open64 so that it uses the standalone Whirl2OA package.  I am still  
+working on cleaning up the build process for UseOA-Open64, but  
+everything works with regressAll right now.  The key thing to  
+remember is that to make the most recent version of UseOA-Open64  
+compile, you need to get Whirl2OA.
+
+in UseOA-Open64/
+	% svn co svn+<A HREF="ssh://svn.berlios.de/svnroot/repos/openanalysis/">ssh://svn.berlios.de/svnroot/repos/openanalysis/</A> 
+Whirl2OA/trunk Whirl2OA
+
+If you have any problems let me know.  Please do not mess with the  
+Makefiles because I am still working on them.
+
+-Michelle
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070124/021d8bb3/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070124/021d8bb3/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000079.html">[Openanalysis-dev] &quot;Michelle Strout&quot; &lt;mstrout at cs.colostate.edu&gt;,	&quot;hovland at mcs.anl.gov&quot; &lt;hovland at mcs.anl.gov&gt;, ,	&lt;priyadarshini.malusare at gmail.com&gt;
+</A></li>
+	<LI>Next message: <A HREF="000081.html">[Openanalysis-dev] Documentation development underway
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#80">[ date ]</a>
+              <a href="thread.html#80">[ thread ]</a>
+              <a href="subject.html#80">[ subject ]</a>
+              <a href="author.html#80">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

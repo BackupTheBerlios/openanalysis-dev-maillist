@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Change in UseOA-ROSE build process
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Change%20in%20UseOA-ROSE%20build%20process&In-Reply-To=%3CDF5CBD5C-9DFF-4F50-8257-8D63278C9348%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000023.html">
+   <LINK REL="Next"  HREF="000026.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Change in UseOA-ROSE build process</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Change%20in%20UseOA-ROSE%20build%20process&In-Reply-To=%3CDF5CBD5C-9DFF-4F50-8257-8D63278C9348%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] Change in UseOA-ROSE build process">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Wed Jul  5 23:16:49 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000023.html">[Openanalysis-dev] Proposed graph classes refactor to fix OA Bug 008060
+</A></li>
+        <LI>Next message: <A HREF="000026.html">[Openanalysis-dev] ParamBinding Driver, TestCases and TestRsults in the Repository
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>If you all recall, Brian was suggesting that people cleanup the  
+config/Makefile.inc file in UseOA-ROSE.  I changed things so that we  
+won't be using the Makefile.inc in the same way anymore.  Now you  
+need to write your own script, that you do not check into the  
+repository and source that before compiling.  This way things will be  
+similar to how things work in UseOA-Open64.  Here is my script as an  
+example:
+
+#### User-specific configuration for UseOA-ROSE
+
+# Specifies what debugging &amp; profile flags are sent to the compiler
+# and linker
+#PROFILE_OPTIONS = -O0 -g -pg
+setenv PROFILE_OPTIONS '-O0 -g'
+#PROFILE_OPTIONS =
+
+# Top-level UseOA source directory
+setenv topsrcdir /s/parsons/c/fac/mstrout/OA/armstrong/UseOA-ROSE
+
+# Root of ROSE installation
+setenv ROSE_INST_ROOT /s/bach/e/proj/oadev/ROSE/rose-0.8.7a/armstrong
+
+# OpenAnalysis variables
+setenv OPENANALYSIS_DIR /s/parsons/c/fac/mstrout/OA/armstrong/ 
+OpenAnalysis
+
+setenv OPENANALYSIS_ARCH i686-Linux
+#OPENANALYSIS_ARCH=opteron-Linux
+
+# Compiler/linker
+setenv CXX g++
+setenv CXXLD g++
+setenv CXXFLAGS '-g -O0'
+
+-Michelle
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000023.html">[Openanalysis-dev] Proposed graph classes refactor to fix OA Bug 008060
+</A></li>
+	<LI>Next message: <A HREF="000026.html">[Openanalysis-dev] ParamBinding Driver, TestCases and TestRsults in the Repository
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

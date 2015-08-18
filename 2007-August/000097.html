@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] regression diffs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20regression%20diffs&In-Reply-To=%3C46BB2277.60007%40mcs.anl.gov%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000096.html">
+   <LINK REL="Next"  HREF="000098.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] regression diffs</H1>
+    <B>Jean Utke</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20regression%20diffs&In-Reply-To=%3C46BB2277.60007%40mcs.anl.gov%3E"
+       TITLE="[Openanalysis-dev] regression diffs">utke at mcs.anl.gov
+       </A><BR>
+    <I>Thu Aug  9 16:19:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000096.html">[Openanalysis-dev] regression diffs
+</A></li>
+        <LI>Next message: <A HREF="000098.html">[Openanalysis-dev] test script status
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#97">[ date ]</a>
+              <a href="thread.html#97">[ thread ]</a>
+              <a href="subject.html#97">[ subject ]</a>
+              <a href="author.html#97">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+Never mind my message from yesterday - I had an incomplete recompile.
+I suppose one shouldn't send e-mail after midnight ... :-)
+
+Jean
+
+
+Priyadarshini Malusare wrote:
+&gt;<i> Hi Jean,
+</I>&gt;<i>
+</I>&gt;<i>  I do not see the regressAll failure you mentioned below  with
+</I>&gt;<i>  the recent revision of OpenAnalysis and UseOA-Open64.
+</I>&gt;<i>
+</I>&gt;<i>  I think the problem is you see regressAll failure
+</I>&gt;<i>  because &quot;Statement Order&quot; mismatch in the output
+</I>&gt;<i>  of SideEffect/ReachConst/ICFGReachConst which
+</I>&gt;<i>  does not mean results are incorrect.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> In order to fix the problem of
+</I>&gt;<i> &quot;Statement Order mismatch in the Output&quot;,
+</I>&gt;<i> we regenerate the regressAll output
+</I>&gt;<i> on okapi and consider that as &quot;reference&quot; because
+</I>&gt;<i> okapi is the main machine for our experiments.  
+</I>&gt;<i>  
+</I>&gt;<i>  Is there any alternative ?
+</I>&gt;<i>
+</I>&gt;<i>  However, today, I see following difference wrt few testcases
+</I>&gt;<i>  for the ./FORTRANtoOA
+</I>&gt;<i>
+</I>&gt;<i> ----------------------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> &lt;     MEMREFEXPRS = { StmtHandle(&quot;VUSE &lt;1,20,globals_&gt;
+</I>&gt;<i> ---
+</I>&gt;<i> &gt;     MEMREFEXPRS = { StmtHandle(&quot;USE &lt;1,20,globals_&gt;
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------------------------------------------------------------------
+</I>&gt;<i>
+</I>&gt;<i> The OpenAnalysis and UseOA-Open64 revision I am using:
+</I>&gt;<i>
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">malusare at okapi</A> OpenAnalysis]$ svn info
+</I>&gt;<i> Path: .
+</I>&gt;<i> URL: 
+</I>&gt;<i> svn+<A HREF="ssh://svn.berlios.de/svnroot/repos/openanalysis/OpenAnalysis/trunk">ssh://svn.berlios.de/svnroot/repos/openanalysis/OpenAnalysis/trunk</A>
+</I>&gt;<i> Repository UUID: b3d7d29f-380a-0410-9641-e73d6540ff72
+</I>&gt;<i> Revision: 453
+</I>&gt;<i> Node Kind: directory
+</I>&gt;<i> Schedule: normal
+</I>&gt;<i> Last Changed Author: utke
+</I>&gt;<i> Last Changed Rev: 453
+</I>&gt;<i> Last Changed Date: 2007-08-01 23:26:58 -0500 (Wed, 01 Aug 2007)
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> [<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">malusare at okapi</A> UseOA-Open64]$ svn info
+</I>&gt;<i> Path: .
+</I>&gt;<i> URL: svn+<A HREF="ssh://svn.berlios.de/svnroot/repos/useoa-open64/trunk">ssh://svn.berlios.de/svnroot/repos/useoa-open64/trunk</A>
+</I>&gt;<i> Repository UUID: eac892ec-190f-0410-9fdf-bfd8caa68912
+</I>&gt;<i> Revision: 185
+</I>&gt;<i> Node Kind: directory
+</I>&gt;<i> Schedule: normal
+</I>&gt;<i> Last Changed Author: kreaseck
+</I>&gt;<i> Last Changed Rev: 185
+</I>&gt;<i> Last Changed Date: 2007-07-27 20:45:56 -0500 (Fri, 27 Jul 2007)
+</I>&gt;<i>  
+</I>&gt;<i>
+</I>&gt;<i>     I wanted to commit some changes to Whirls2OA but in the original
+</I>&gt;<i>     regressAll has plenty of diffs in
+</I>&gt;<i>     Testing TestCases/SideEffect/test.B,
+</I>&gt;<i>     TestResults/SideEffect/test.B.out
+</I>&gt;<i>     Checked by BK 7/27/2006
+</I>&gt;<i>     Testing TestCases/SideEffect/Jean2.B,
+</I>&gt;<i>     TestResults/SideEffect/Jean2.B.out
+</I>&gt;<i>     Checked by BK 7/27/2007
+</I>&gt;<i>     Testing TestCases/ReachConsts/constprop_if1a.B,
+</I>&gt;<i>     TestResults/ReachConsts/constprop_if1a.B.out Checked by BK 08/29/06
+</I>&gt;<i>     Testing TestCases/ReachConsts/constprop_if1.B,
+</I>&gt;<i>     TestResults/ReachConsts/constprop_if1.B.out Checked by BK 08/29/06
+</I>&gt;<i>     etc for all reach const cases:
+</I>&gt;<i>     &lt; ConstDefSet:
+</I>&gt;<i>     ---
+</I>&gt;<i>     &gt; ConstDef:
+</I>&gt;<i>     and also for
+</I>&gt;<i>     Testing TestCases/ReachConsts/constprop_if1a.B,
+</I>&gt;<i>     TestResults/ICFGReachConsts/constprop_if1a.B.out Checked by BK
+</I>&gt;<i>     08/29/06
+</I>&gt;<i>     etc.
+</I>&gt;<i>     Not sure who needs to fix this.
+</I>&gt;<i>     Anyway - once I get the ok from one of you I will commit my Whirl2OA
+</I>&gt;<i>     changes. Basically one of the cleanup actions I meant to
+</I>&gt;<i>     put into mfef90 has to be postponed until we read the generated IR.
+</I>&gt;<i>     So I added the cleanup stuff to the Open64IRInterface as part ot
+</I>&gt;<i>     ReadIR.
+</I>&gt;<i>
+</I>&gt;<i>     Jean
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Thanks and Regards,
+</I>&gt;<i> -Priyadarshini.
+</I>&gt;<i>
+</I>&gt;<i> ------------------------------------------------------------------------
+</I>&gt;<i> Shape Yahoo! in your own image. Join our Network Research Panel today! 
+</I>&gt;<i> &lt;<A HREF="http://us.rd.yahoo.com/evt=48517/*http://surveylink.yahoo.com/gmrs/yahoo_panel_invite.asp?a=7">http://us.rd.yahoo.com/evt=48517/*http://surveylink.yahoo.com/gmrs/yahoo_panel_invite.asp?a=7</A>&gt; 
+</I>
+
+
+-- 
+Jean Utke
+Argonne National Lab./MCS
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">utke at mcs.anl.gov</A>
+phone: 630 252 4552 
+cell:  630 363 5753
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000096.html">[Openanalysis-dev] regression diffs
+</A></li>
+	<LI>Next message: <A HREF="000098.html">[Openanalysis-dev] test script status
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#97">[ date ]</a>
+              <a href="thread.html#97">[ thread ]</a>
+              <a href="subject.html#97">[ subject ]</a>
+              <a href="author.html#97">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] AliasTag branch - boost question - again
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20AliasTag%20branch%20-%20boost%20question%20-%20again&In-Reply-To=%3C499C831E.5070807%40mcs.anl.gov%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000116.html">
+   <LINK REL="Next"  HREF="000118.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] AliasTag branch - boost question - again</H1>
+    <B>Jean Utke</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20AliasTag%20branch%20-%20boost%20question%20-%20again&In-Reply-To=%3C499C831E.5070807%40mcs.anl.gov%3E"
+       TITLE="[Openanalysis-dev] AliasTag branch - boost question - again">utke at mcs.anl.gov
+       </A><BR>
+    <I>Wed Feb 18 22:52:30 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000116.html">[Openanalysis-dev] AliasTag branch - boost question - again
+</A></li>
+        <LI>Next message: <A HREF="000118.html">[Openanalysis-dev] AliasTag branch - boost question - again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Barbara,
+
+Here is what I have:
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">m_utkej at utke2</A>:~/Argonne/Dev/AliasTag/OpenAD/UseOA_Open64&gt; svn info
+Path: .
+URL:
+svn+<A HREF="ssh://utke@svn.berlios.de/svnroot/repos/useoa-open64/branch/AliasTagBranch">ssh://utke@svn.berlios.de/svnroot/repos/useoa-open64/branch/AliasTagBranch</A>
+Repository Root: svn+<A HREF="ssh://utke@svn.berlios.de/svnroot/repos/useoa-open64">ssh://utke@svn.berlios.de/svnroot/repos/useoa-open64</A>
+Repository UUID: eac892ec-190f-0410-9fdf-bfd8caa68912
+Revision: 350
+Node Kind: directory
+Schedule: normal
+Last Changed Author: kreaseck
+Last Changed Rev: 350
+Last Changed Date: 2009-02-16 16:45:50 -0600 (Mon, 16 Feb 2009)
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">m_utkej at utke2</A>:~/Argonne/Dev/AliasTag/OpenAD/UseOA_Open64&gt; cd
+../OpenAnalysis/
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">m_utkej at utke2</A>:~/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis&gt; svn info
+Path: .
+URL:
+svn+<A HREF="ssh://utke@svn.berlios.de/svnroot/repos/openanalysis/OpenAnalysis/branch/AliasTagBranch">ssh://utke@svn.berlios.de/svnroot/repos/openanalysis/OpenAnalysis/branch/AliasTagBranch</A>
+Repository Root: svn+<A HREF="ssh://utke@svn.berlios.de/svnroot/repos/openanalysis">ssh://utke@svn.berlios.de/svnroot/repos/openanalysis</A>
+Repository UUID: b3d7d29f-380a-0410-9641-e73d6540ff72
+Revision: 892
+Node Kind: directory
+Schedule: normal
+Last Changed Author: kreaseck
+Last Changed Rev: 890
+Last Changed Date: 2009-02-16 16:43:53 -0600 (Mon, 16 Feb 2009)
+
+
+I do have BOOSTROOT set
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">m_utkej at utke2</A>:~/Argonne/Dev/AliasTag/OpenAD/UseOA_Open64&gt; echo $BOOSTROOT
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/boost
+
+but it doesn't show up in the compile line unless I also do
+export CXXFLAGS=-I${BOOSTROOT}
+
+Is that how you want it to work, i.e. shouldn't it rather be set in the
+Makefile?
+
+Jean
+
+-- 
+Jean Utke
+Argonne National Lab. / MCS
+9700 S Cass Ave., Argonne, IL, 60439, USA
+phone 630 252 4552 / mobile 630 363 5753
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000116.html">[Openanalysis-dev] AliasTag branch - boost question - again
+</A></li>
+	<LI>Next message: <A HREF="000118.html">[Openanalysis-dev] AliasTag branch - boost question - again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

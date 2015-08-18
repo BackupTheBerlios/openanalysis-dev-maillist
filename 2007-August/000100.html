@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] ExprTree for non-call non-assignpair	statements
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20ExprTree%20for%20non-call%20non-assignpair%0A%09statements&In-Reply-To=%3C39e0b340708290814t654bc9dbt17dd7de2dfd5f9b1%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000099.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] ExprTree for non-call non-assignpair	statements</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20ExprTree%20for%20non-call%20non-assignpair%0A%09statements&In-Reply-To=%3C39e0b340708290814t654bc9dbt17dd7de2dfd5f9b1%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] ExprTree for non-call non-assignpair	statements">priyadarshini.malusare at gmail.com
+       </A><BR>
+    <I>Wed Aug 29 17:14:20 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000099.html">[Openanalysis-dev] Issues for this week
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Michelle,
+
+    At this point,  We create ExprTree's on the fly whenever we
+    need ExprTree for the given statement.  We do not store
+    information about statement and its ExprTrees.
+
+    I think your suggesion to get an Iterator over ExprTree for a statement
+    indirectly suggests that we need a map to store
+    ExprTrees for each statement,  therefore, we need to create ExprTrees
+    only once.
+
+    How about creating a map &lt;Stmt, Set&lt;ExprTrees&gt; &gt; at the same time
+    we create MemRefExprs for the whirl node ?
+
+Thanks and Regards,
+-Priyadarshini.
+
+
+On 8/29/07, Michelle Strout &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Yes.
+</I>&gt;<i> It could be that we need to introduce an iterator over ExprTrees in a
+</I>&gt;<i> statement.
+</I>&gt;<i>
+</I>&gt;<i> -Michelle
+</I>&gt;<i>
+</I>&gt;<i> On Aug 29, 2007, at 8:26 AM, Priyadarshini Malusare wrote:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Hi Michelle,
+</I>&gt;<i>
+</I>&gt;<i> We should get Expression tree for all the expressions
+</I>&gt;<i>   including expressions used in conditional tests.
+</I>&gt;<i>  e.g.  if( a .and. b )  or  if( a+b &gt; 0)
+</I>&gt;<i>
+</I>&gt;<i> The problem is
+</I>&gt;<i> 1. ExprTrees are created for each AssignPair
+</I>&gt;<i> 2. ExprTrees are created for Parameters used in call statement.
+</I>&gt;<i>
+</I>&gt;<i> Expressions that are not call statements and does not have assignpairs
+</I>&gt;<i> as above are ignored for ExprTree.
+</I>&gt;<i>
+</I>&gt;<i> Do you consider this as bug ?
+</I>&gt;<i>
+</I>&gt;<i> Thanks and Regards,
+</I>&gt;<i> -Priyadarshini.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> =======================================
+</I>&gt;<i>  Michelle Mills Strout
+</I>&gt;<i>  Assistant Professor
+</I>&gt;<i>
+</I>&gt;<i>  Colorado State University
+</I>&gt;<i>  Computer Science Department
+</I>&gt;<i>  1873 Campus Delivery
+</I>&gt;<i>  Fort Collins, CO 80523-1873
+</I>&gt;<i>
+</I>&gt;<i>  (970) 491-7026
+</I>&gt;<i>  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+</I>&gt;<i> =======================================
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070829/b6537c3e/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070829/b6537c3e/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000099.html">[Openanalysis-dev] Issues for this week
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

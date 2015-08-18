@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Fortran2OA
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-August/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Fortran2OA&In-Reply-To=%3C20060815001717.65974.qmail%40web36608.mail.mud.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000065.html">
+   <LINK REL="Next"  HREF="000067.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Fortran2OA</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Fortran2OA&In-Reply-To=%3C20060815001717.65974.qmail%40web36608.mail.mud.yahoo.com%3E"
+       TITLE="[Openanalysis-dev] Fortran2OA">priyadarshini_malusare at yahoo.com
+       </A><BR>
+    <I>Tue Aug 15 02:17:16 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000065.html">[Openanalysis-dev] Weekly status report #4, July 24-Aug 4
+</A></li>
+        <LI>Next message: <A HREF="000067.html">[Openanalysis-dev] Weekly status report #5, Aug 5 through Aug 21
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+PROCEDURE = { &lt; ProcHandle(&quot;foo_&quot;), SymHandle(&quot;foo_&quot;) &gt; }
+    FORMALS = {
+        [
+            &lt; 0, SymHandle(&quot;X&quot;) &gt;
+            &lt; 1, SymHandle(&quot;Y&quot;) &gt;
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot; LOC 0 0 source files:  1   &quot;/home/malusare/Regression/UseOA-Open64/TestCases/SideEffect/Jean.f90&quot;
+PRAGMA 0 120 &lt;null-st&gt; 0 (0x0) # PREAMBLE_END
+&quot;) =&gt;
+        [
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot;Y:0:.predef_F8 = 0:X:0:anon_ptr.(1)*0:X:0:anon_ptr.(2)&quot;) =&gt;
+        [
+            MemRefHandle(&quot;Y:0:.predef_F8&quot;) =&gt;
+                Deref( DEF, NamedRef( USE, SymHandle(&quot;Y&quot;), F, full), 1, F, full)
+            MemRefHandle(&quot;X:0:anon_ptr.(1)&quot;) =&gt;
+                Deref( USE, NamedRef( USE, SymHandle(&quot;X&quot;), F, part), 1, F, part)
+            MemRefHandle(&quot;X:0:anon_ptr.(2)&quot;) =&gt;
+                Deref( USE, NamedRef( USE, SymHandle(&quot;X&quot;), F, part), 1, F, part)
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot;return&quot;) =&gt;
+        [
+        ] }
+    LOCATION = { &lt; SymHandle(&quot;foo_&quot;), not local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;X&quot;), local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;Y&quot;), local &gt; }
+
+PROCEDURE = { &lt; ProcHandle(&quot;head_&quot;), SymHandle(&quot;head_&quot;) &gt; }
+    FORMALS = {
+        [
+            &lt; 0, SymHandle(&quot;X&quot;) &gt;
+            &lt; 1, SymHandle(&quot;Y&quot;) &gt;
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot;PRAGMA 0 120 &lt;null-st&gt; 0 (0x0) # PREAMBLE_END
+&quot;) =&gt;
+        [
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot;PX:0:anon_ptr.(1) =     1.000000&quot;) =&gt;
+        [
+            MemRefHandle(&quot;PX:0:anon_ptr.(1)&quot;) =&gt;
+                NamedRef( DEF, SymHandle(&quot;PX&quot;), F, part)
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot;PX:0:anon_ptr.(2) =     2.000000&quot;) =&gt;
+        [
+            MemRefHandle(&quot;PX:0:anon_ptr.(2)&quot;) =&gt;
+                NamedRef( DEF, SymHandle(&quot;PX&quot;), F, part)
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot;foo_(&amp;0:X:0:anon_ptr., &amp;Y:0:.predef_F8)&quot;) =&gt;
+        [
+            MemRefHandle(&quot;0:X:0:anon_ptr.&quot;) =&gt;
+                Deref( USE, NamedRef( USE, SymHandle(&quot;X&quot;), F, full), 1, F, full)
+            MemRefHandle(&quot;X:0:anon_ptr.&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;X&quot;), F, full)
+            MemRefHandle(&quot;Y:0:.predef_F8&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;Y&quot;), F, full)
+        ] }
+    CALLSITES = { StmtHandle(&quot;foo_(&amp;0:X:0:anon_ptr., &amp;Y:0:.predef_F8)&quot;) =&gt;
+        [
+            CallHandle(&quot;foo_(&amp;0:X:0:anon_ptr., &amp;Y:0:.predef_F8)&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;foo_&quot;), F, full)
+        ] }
+    PARAMBINDPTRASSIGNPAIRS = { CallHandle(&quot;foo_(&amp;0:X:0:anon_ptr., &amp;Y:0:.predef_F8)&quot;) =&gt;
+        [
+            &lt; 1, NamedRef( USE, SymHandle(&quot;Y&quot;), F, full) &gt;
+        ] }
+
+ MEMREFEXPRS = { StmtHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+        [
+            MemRefHandle(&quot;0:PX:0:anon_ptr.&quot;) =&gt;
+                Deref( USE, NamedRef( USE, SymHandle(&quot;PX&quot;), T, part), 1, F, part)
+            MemRefHandle(&quot;PX:0:anon_ptr.&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;PX&quot;), T, part)
+            MemRefHandle(&quot;PY:0:.predef_F8&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;PY&quot;), T, full)
+        ] }
+    CALLSITES = { StmtHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+        [
+            CallHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;foo_&quot;), F, full)
+        ] }
+    PARAMBINDPTRASSIGNPAIRS = { CallHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+        [
+            &lt; 1, NamedRef( USE, SymHandle(&quot;PY&quot;), T, full) &gt;
+        ] }
+    MEMREFEXPRS = { StmtHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+        [
+            MemRefHandle(&quot;0:PX:0:anon_ptr.&quot;) =&gt;
+                Deref( USE, NamedRef( USE, SymHandle(&quot;PX&quot;), T, part), 1, F, part)
+            MemRefHandle(&quot;PX:0:anon_ptr.&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;PX&quot;), T, part)
+            MemRefHandle(&quot;PY:0:.predef_F8&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;PY&quot;), T, full)
+        ] }
+    CALLSITES = { StmtHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+        [
+            CallHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+                NamedRef( USE, SymHandle(&quot;foo_&quot;), F, full)
+        ] }
+    PARAMBINDPTRASSIGNPAIRS = { CallHandle(&quot;foo_(&amp;0:PX:0:anon_ptr., &amp;PY:0:.predef_F8)&quot;) =&gt;
+        [
+            &lt; 1, NamedRef( USE, SymHandle(&quot;PY&quot;), T, full) &gt;
+        ] }
+  MEMREFEXPRS = { StmtHandle(&quot;return&quot;) =&gt;
+        [
+        ] }
+    LOCATION = { &lt; SymHandle(&quot;foo_&quot;), not local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;head_&quot;), not local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;X&quot;), local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;Y&quot;), local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;PX&quot;), local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;PY&quot;), local &gt; }
+
+
+
+ 		
+---------------------------------
+Get your email and more, right on the  new Yahoo.com 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060814/f8d6a466/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060814/f8d6a466/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000065.html">[Openanalysis-dev] Weekly status report #4, July 24-Aug 4
+</A></li>
+	<LI>Next message: <A HREF="000067.html">[Openanalysis-dev] Weekly status report #5, Aug 5 through Aug 21
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

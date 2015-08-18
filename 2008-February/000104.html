@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Output Builder Comments
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Output%20Builder%20Comments&In-Reply-To=%3Cfbd74aee0802131959p854a9d6pa076606f3a4865d6%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000103.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Output Builder Comments</H1>
+    <B>Andy Stone</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Output%20Builder%20Comments&In-Reply-To=%3Cfbd74aee0802131959p854a9d6pa076606f3a4865d6%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] Output Builder Comments">aistone at gmail.com
+       </A><BR>
+    <I>Thu Feb 14 04:59:58 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000103.html">[Openanalysis-dev] ROSE build instructions on WIKI
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+There are some subtle changes to how we do output in OpenAnalysis. I
+think these changes, along with the motivation behind them, needs to
+be documented (hence this e-mail). Here's a short summary if you don't
+want to read straight-through my wall-of-text:
+
+Summary:
+  - Output builder can now add comments.
+
+  - To use comments, some objects will have output methods that get
+passed results.
+
+  - Some objects now have comment() methods. These methods return a
+succinct string for debugging purposes that aren't padded by
+whitespace and contain no newlines.
+
+ - Should we still have dump() methods?
+
+ - Should the regression testing system ignore comments?
+
+  - toString() methods in the IRHandlesInterface are now constant.
+Priya, you'll have to update UseOA-Open64 to handle this.
+
+Note: These changes are just in the alias tag branch for now.
+
+
+
+
+Long explanation:
+
+Output builder can now add comments:
+-------------------------------------------------------
+
+Michelle and I have been talking about adding a comment method to the
+OutputBuilder class.
+
+I think the output functions were originally developed to serialize
+objects rather than to be a way of dumping debugging information --
+the dump() functions were for that purpose.
+
+One place we do use this output is in the regression tests. These
+tests compare what we've specified as expected outputBuilder output
+against actual output. In order to build a regression test one of us
+has to hand check outputBuilder output. For our benefit it would be
+convienent to include debugging info in this output.
+
+Foe example: alias tag output. If you're outputting the result of a
+data-flow analysis that propagates tags (such as liveness) you'd see
+CFG nodes mapped to sets of tags. Each tag would output as such:
+
+Tag(
+    mTagID: 3
+)
+
+When verifying you'd have to check what set of MREs map to this tag
+(meaning you'd have to cross reference each tag with the alias
+analysis results). Doing this by hand for each and every tag would
+become tedious fast. So we want to output the set of MREs along with
+each tag.
+
+But -- if we did this it would be poor output for serialization. Maybe
+in the future we'll need to transmit objects across a network, put
+them in a database, or save them to, then re-load them from, a file.
+In which case we don't want any redundent or extraneous information.
+
+The solution is to add comments to the output, showing what
+information acuratly reflects the state of the object and what info is
+there for our benefit. Comments work like you'd expect them to: ignore
+everything right of #. So, with comments added the tag example
+becomes:
+
+Tag(
+    mTagID: 8
+    # NamedRef(g)
+    # Deref(NamedRef(ptr))
+)
+
+
+
+To use comments, some objects will have output methods that get passed results.
+-------------------------------------------------------
+
+Alias tags don't themselves have Tag to MRE information, only the
+alias-analysis result object does. So how do we get alias tags to
+output their asscociated MREs?
+
+Answer: we pass alias results into the output method. Note that the
+alias tag class declares the following method:
+
+virtual void output(OA::IRHandlesIRInterface&amp; ir,
+                        const Interface&amp; aliasResults) const;
+
+This means that any object that itself outputs alias tags needs to
+have aliasResults info to call this function. To satisfy the
+annotation interface the alias tag class also declares a version of
+output without aliasResults.
+
+
+
+Some objects now have comment() methods
+-------------------------------------------------------
+
+In particular all the classes in the MemRefExpr heirachy. Comment
+methods are supposed to be methods that return a string for use in an
+output comment. It's very important that these methods return a string
+that does not include new-line characters!
+
+
+
+Should the regression testing system ignore comments?
+-------------------------------------------------------
+
+Section title says it all. I think the following would do the trick:
+  sed -e '/^[ \t]*#/d'
+
+
+
+Should we still have dump() methods?
+-------------------------------------------------------
+
+Since our output() methods now include debugging info, do we still
+need dump() methods? Seems sort of redundent, and whenever someone
+updates a class with new functionality how do we ensure they update
+both?
+
+
+
+toString() methods from IRHandlesInterface are now constant
+-------------------------------------------------------
+
+Since these methods need to be called from the comment() methods in
+the MemRefExpr classes, and these classes get passed a
+constant-reference of an IRHandlesIterface. I've fixed UseOA-ROSE so
+this is the case. We'll need to do the same for UseOA-Open64.
+
+-Andy
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000103.html">[Openanalysis-dev] ROSE build instructions on WIKI
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

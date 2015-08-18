@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Significant changes in OpenAnalysis: important
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Significant%20changes%20in%20OpenAnalysis%3A%20important&In-Reply-To=%3C39e0b340707060904m393c12data09612945e5f07ac%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Significant changes in OpenAnalysis: important</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Significant%20changes%20in%20OpenAnalysis%3A%20important&In-Reply-To=%3C39e0b340707060904m393c12data09612945e5f07ac%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] Significant changes in OpenAnalysis: important">priyadarshini.malusare at gmail.com
+       </A><BR>
+    <I>Fri Jul  6 18:04:14 CEST 2007</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+There are some changes on OpenAnalysis/UseOA-Open64/UseOA-ROSE
+ that may affect significantly some of your work.   Please let me know, in
+case
+you notice any problem.
+
+Change 1:
+
+Problem:
+
+When there is IdxExpAccess(Deref(NamedRef(formal))) or
+SubSetRef(Deref(NamedRef(formal))) access in a procedure,
+ we want this MRE to alias the Deref(NamedRef(formal)) that is generated
+during alias analysis when the formal is a reference or pointer type.
+ The alias analysis doesn't put them together because if it were any kind of
+SubSetRef(NamedRef(x)) and NamedRef(x), they would be mapped to
+LocSubSet(NamedLoc(x)) and NamedLoc(x) locations that overlap. Currently
+Invisible Locs are only considered to may overlap if their MREs are
+identical.
+
+Solution:
+Assume that Invisible Locs overlap if their MREs have the same base symbol
+and the same number of dereferences.
+
+Changes You will notice with respect to the UseOA-Open64/UseOA-ROSE output:
+
+MemRefExpr:
+
+SubSetRef(Deref(NamedRef(x)))   =&gt;
+
+Location before change:  InvLoc( SubSetRef(Deref(NamedRef(x))))
+Location after change    : LocSubSet(InvLoc(Deref(NamedRef(x))))
+
+Location before change:  InvLoc( SubSetRef(Deref(NamedRef(x))))
+Location after change    :  IdxAccess(Deref(NamedRef(x)))   =&gt;
+LocIdxSubSet(InvLoc(Deref(NamedRef(x))))
+
+Location before change:  InvLoc( SubSetRef(Deref(NamedRef(x))))
+Location after change   :  FieldAccess(Deref(NamedRef(x)))   =&gt;
+LocFieldSubSet(InvLoc(Deref(NamedRef(x))))
+
+Location before change:  InvLoc( SubSetRef(Deref(NamedRef(x))))
+Location after change   :   IdxExprAccess(Deref(NamedRef(x)))   =&gt;
+LocIdxSubSet(InvLoc(Deref(NamedRef(x))))
+
+Please refer following link for the detailed reference:
+
+<A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/Invisible_20Location_20Problems">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/Invisible_20Location_20Problems</A>
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Change 2:
+
+Problem:
+
+The fact that UnnamedRefs are always categorized as not local is a problem
+because all of the
+ UnnamedRefs created for actual parameter temps end up getting alias map
+sets for each function.
+This is probably causing some of the significant performance problems for
+Alias Analysis and other
+dependent analysis.
+
+Solution:
+
+Added scope for UnnamedRef (UnnamedRef made local/non-local to the
+procedure.)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Change 3:
+
+Removed Alias Analysis from Context-Sensitive and Flow-Insensitive Activity
+Analysis.
+
+We do not use Alias Analysis to perform CSFI Activity analysis.  It was
+misleading
+to pass Interactive as one of the parameter for CSFI Activity Manager.
+
+
+Thanks and Regards,
+-Priyadarshini.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070706/26b3cd63/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070706/26b3cd63/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

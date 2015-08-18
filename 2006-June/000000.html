@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Andy's changes passed regression tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Andy%27s%20changes%20passed%20regression%20tests&In-Reply-To=%3CC5D89D09-BC66-42D7-9C0C-8424CD522024%40cs.colostate.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000001.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Andy's changes passed regression tests</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Andy%27s%20changes%20passed%20regression%20tests&In-Reply-To=%3CC5D89D09-BC66-42D7-9C0C-8424CD522024%40cs.colostate.edu%3E"
+       TITLE="[Openanalysis-dev] Andy's changes passed regression tests">mstrout at cs.colostate.edu
+       </A><BR>
+    <I>Tue Jun 20 23:24:21 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000001.html">[Openanalysis-dev] Update 118 to OA, 77 to UseOA-ROSE, and 31 to UseOA-Open64
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Andy,
+
+Congratulations!!  Your OpenAnalysis changes passed regression  
+testing in UseOA-Open64.
+
+I just ran the UseOA-Open64 regression tests on rev 108, rev 111, and  
+rev 115 of OpenAnalysis.  Each of them involved significant changes.   
+Here is an outline of the process:
+
+	In OpenAnalysis
+		% svn update -r 108
+		% make -f Makefile.quick configure
+		% make -f Makefile.quick install
+
+	In UseOA-Open64/
+		% make clean
+		% make
+		% source scripts/regressAll.script
+
+
+Not all of the updates required a configure of OpenAnalysis.  The  
+make clean is because the makefile dependencies in UseOA-Open64 (and  
+UseOA-ROSE) are not that robust and I wanted to be sure all changes  
+to header files are compiled in.
+
+We don't have solid regression tests up and running yet for UseOA- 
+ROSE, but we are very close right Andy? =)
+
+Thanks,
+Michelle
+
+
+NOTE: sign up for the openanalysis-dev mailing list.  Soon I will  
+start sending emails like this just to the list.
+
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000001.html">[Openanalysis-dev] Update 118 to OA, 77 to UseOA-ROSE, and 31 to UseOA-Open64
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

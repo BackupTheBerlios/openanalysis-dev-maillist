@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] OA Rev. 533 - 539 committed
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20OA%20Rev.%20533%20-%20539%20committed&In-Reply-To=%3Cfbd74aee0711121505y40cb13can20f9ee9af186b268%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] OA Rev. 533 - 539 committed</H1>
+    <B>Andy Stone</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20OA%20Rev.%20533%20-%20539%20committed&In-Reply-To=%3Cfbd74aee0711121505y40cb13can20f9ee9af186b268%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] OA Rev. 533 - 539 committed">aistone at gmail.com
+       </A><BR>
+    <I>Tue Nov 13 00:05:49 CET 2007</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#102">[ date ]</a>
+              <a href="thread.html#102">[ thread ]</a>
+              <a href="subject.html#102">[ subject ]</a>
+              <a href="author.html#102">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all,
+
+I've just committed to the OpenAnalysis trunk (several times),
+specifically revisions 533 through 539. The changes made are described
+below:
+
+Bug Fixes
+-------------
+- ManagerFIAlias has a MRE visitor class VisibleBaseVisitor. I've
+modified it so that whenever an AdressOf node is visited the
+
+visitor will return that the base is not visible. This is important
+since an expression like (&amp;A[32])[2] does not have a
+
+visible base.
+- During a backward dataflow analysis the atDGraphNode function should
+do a meet of all in information from successors.
+
+Changes so that I can do ExprTree ordering
+---------------------------------------------
+- Added operator&lt; to the ConstValBasicInterface
+- Added OpBasicInterface
+- Added the NewExprTree class (In the NewExprTree/ dir)
+
+Changes for DFAGen
+------------------
+- Added IR Interfaces to DFAGen'd ReachingDefs and Liveness analyses
+- Added DFAGen/Liveness and DFAGen/ReachingDefs/ directories
+- Added a succinct flag (defaulted to off) to the dumpLocSets (in
+Location.hpp|cpp) that dumps the sets in a cleaner way.
+- Added DFAGenDFSet class
+
+- Modified Makefiles to compile added classes.
+
+Thanks,
+-Andy Stone
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#102">[ date ]</a>
+              <a href="thread.html#102">[ thread ]</a>
+              <a href="subject.html#102">[ subject ]</a>
+              <a href="author.html#102">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

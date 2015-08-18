@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] September OA Meeting Conclusions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-September/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20September%20OA%20Meeting%20Conclusions&In-Reply-To=%3CE7EA261D-0ADB-4F70-93C0-7CD9D8A0D76E%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] September OA Meeting Conclusions</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20September%20OA%20Meeting%20Conclusions&In-Reply-To=%3CE7EA261D-0ADB-4F70-93C0-7CD9D8A0D76E%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] September OA Meeting Conclusions">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Sat Sep 30 23:20:34 CEST 2006</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#71">[ date ]</a>
+              <a href="thread.html#71">[ thread ]</a>
+              <a href="subject.html#71">[ subject ]</a>
+              <a href="author.html#71">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello everyone,
+
+This past week, Paul, Priya, and Luis visited CSU.  Along with Shweta  
+and Andy, we discussed various issues concerning OpenAnalysis.  See  
+the OpenAnalysis wiki (<A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/</A> 
+moin.cgi/FrontPage) and look at pages OpenAnalysisMeeting and  
+WhoIsDoingWhat.
+
+1) The biggest issue we discussed was handling unspecified evaluation  
+order within a statement.  The IRInterfaces are going to require a  
+partial ordering between memory references and assignment pairs  
+within a statement.  (Assignment pairs are currently called  
+ExprStmtPairs, but we are changing the name for obvious reasons).
+
+We will be going to a bit of work assuming that some languages might  
+have unspecified evaluation orders.  To make sure that was the case I  
+looked up some info on the C standard.  It appears that there are  
+unspecified evaluation orders in the C programming language.  Paul,  
+could you look at section 6.5 discussed below and help us understand  
+what it is saying?
+
+<A HREF="http://en.wikipedia.org/wiki/C_programming_language">http://en.wikipedia.org/wiki/C_programming_language</A>
+	Has a link to the C99 standard.
+	6.5  I can't figure out how point 2 and point 3 get along.  Point 2  
+seems to indicate that an object can only be updated once between  
+sequence points, but point 3 says there is an unspecified evaluation  
+and side-effect order.
+	6.5.2.2 10 - No specified order for the evaluation of arguments to a  
+function call.
+	
+<A HREF="http://www.andromeda.com/people/ddyer/topten.html">http://www.andromeda.com/people/ddyer/topten.html</A>
+	See indefinite order of evaluation.  Seems that previous  
+specifications of C also have the unspecified order of evaluation.
+
+2) Jaewook's context sensitive activity analysis.  Jaewook, we need  
+some help getting your algorithm to work with the concept of formal  
+parameters modeled as pointers.  Also, we need some tests to add to  
+our regression suite.
+
+3) Intrinsics. Jean, please read the wiki about this issue, and we  
+should discuss it next week.
+
+4) AliasMap XAIF and UDDUChains XAIF.  Jean and I need to discuss  
+what is expected here.
+
+5) Some cleanup on the wiki.
+
+Priya
+- Clean up your entries in the wiki so that any names involving  
+multiple capitals (MemRefExpr) are changed to Mem``Ref``Expr so that  
+they don't show up as possible links to pages.
+
+Luis
+- Update the wiki with the assumptions you will be using for the  
+current implementation of linearity.  Go ahead and leave the details  
+you already have for later upgrades.
+- Create another page to link off the WhoIsDoingWhat page that  
+contains the pseudocode for your transfer function.
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060930/61c2a5a0/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060930/61c2a5a0/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#71">[ date ]</a>
+              <a href="thread.html#71">[ thread ]</a>
+              <a href="subject.html#71">[ subject ]</a>
+              <a href="author.html#71">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

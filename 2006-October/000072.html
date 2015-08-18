@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] September OA Meeting Conclusions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-October/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20September%20OA%20Meeting%20Conclusions&In-Reply-To=%3C45250C33.3070903%40mcs.anl.gov%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000073.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] September OA Meeting Conclusions</H1>
+    <B>Jean Utke</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20September%20OA%20Meeting%20Conclusions&In-Reply-To=%3C45250C33.3070903%40mcs.anl.gov%3E"
+       TITLE="[Openanalysis-dev] September OA Meeting Conclusions">utke at mcs.anl.gov
+       </A><BR>
+    <I>Thu Oct  5 15:44:19 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000073.html">[Openanalysis-dev] Merged UseOA-ROSE memRefExprRefactor branch into	trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#72">[ date ]</a>
+              <a href="thread.html#72">[ thread ]</a>
+              <a href="subject.html#72">[ subject ]</a>
+              <a href="author.html#72">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Michelle,
+
+regarding the intrinsics problem you mentioned to look at the wiki where 
+I found:
+
+   1. Intrinsics (MMS assigned on 7/13/06, updated 9/29/06)
+          * Currently the Open64IRInterface handles intrinsic functions
+            specially wrt side-effect analysis results. They are modeled
+            as having no side-effects. One possible problem is that the
+            parameters may be reference parameters and then dataflow
+            analysis won't see the variable being passed to the
+            intrinsic as being used.
+          * If we want to remove intrinsics from the call graph, MMS
+            thinks this means not having a call site for the intrinsic.
+            This is going to mess up the construction of expression
+            trees and therefore reaching constants, linearity analysis,
+            and other future analyses. One possible work-around is to
+            not have an assignment pair (memory reference on lhs and
+            expression tree on rhs) for statements involving intrinsics.
+
+I think it would be easiest right now for me to call you and clarify a 
+number of issues so I understand  the implications.
+I will try today but if you want me to call at a particular time please 
+let me know.
+
+
+Thanks,
+
+Jean
+
+
+
+
+
+
+Michelle Strout wrote:
+&gt;<i> Hello everyone,
+</I>&gt;<i>
+</I>&gt;<i> This past week, Paul, Priya, and Luis visited CSU.  Along with Shweta 
+</I>&gt;<i> and Andy, we discussed various issues concerning OpenAnalysis.  See 
+</I>&gt;<i> the OpenAnalysis wiki 
+</I>&gt;<i> (<A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/FrontPage">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/FrontPage</A>) and 
+</I>&gt;<i> look at pages OpenAnalysisMeeting and WhoIsDoingWhat.
+</I>&gt;<i>
+</I>&gt;<i> 1) The biggest issue we discussed was handling unspecified evaluation 
+</I>&gt;<i> order within a statement.  The IRInterfaces are going to require a 
+</I>&gt;<i> partial ordering between memory references and assignment pairs within 
+</I>&gt;<i> a statement.  (Assignment pairs are currently called ExprStmtPairs, 
+</I>&gt;<i> but we are changing the name for obvious reasons).
+</I>&gt;<i>
+</I>&gt;<i> We will be going to a bit of work assuming that some languages might 
+</I>&gt;<i> have unspecified evaluation orders.  To make sure that was the case I 
+</I>&gt;<i> looked up some info on the C standard.  It appears that there are 
+</I>&gt;<i> unspecified evaluation orders in the C programming language.  Paul, 
+</I>&gt;<i> could you look at section 6.5 discussed below and help us understand 
+</I>&gt;<i> what it is saying?
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://en.wikipedia.org/wiki/C_programming_language">http://en.wikipedia.org/wiki/C_programming_language</A>
+</I>&gt;<i> Has a link to the C99 standard.
+</I>&gt;<i> 6.5  I can't figure out how point 2 and point 3 get along.  Point 2 
+</I>&gt;<i> seems to indicate that an object can only be updated once between 
+</I>&gt;<i> sequence points, but point 3 says there is an unspecified evaluation 
+</I>&gt;<i> and side-effect order.
+</I>&gt;<i> 6.5.2.2 10 - No specified order for the evaluation of arguments to a 
+</I>&gt;<i> function call.
+</I>&gt;<i> <A HREF="http://www.andromeda.com/people/ddyer/topten.html">http://www.andromeda.com/people/ddyer/topten.html</A>
+</I>&gt;<i> See indefinite order of evaluation.  Seems that previous 
+</I>&gt;<i> specifications of C also have the unspecified order of evaluation.
+</I>&gt;<i>
+</I>&gt;<i> 2) Jaewook's context sensitive activity analysis.  Jaewook, we need 
+</I>&gt;<i> some help getting your algorithm to work with the concept of formal 
+</I>&gt;<i> parameters modeled as pointers.  Also, we need some tests to add to 
+</I>&gt;<i> our regression suite.
+</I>&gt;<i>
+</I>&gt;<i> 3) Intrinsics. Jean, please read the wiki about this issue, and we 
+</I>&gt;<i> should discuss it next week.
+</I>&gt;<i>
+</I>&gt;<i> 4) AliasMap XAIF and UDDUChains XAIF.  Jean and I need to discuss what 
+</I>&gt;<i> is expected here.
+</I>&gt;<i>
+</I>&gt;<i> 5) Some cleanup on the wiki.
+</I>&gt;<i>
+</I>&gt;<i> Priya
+</I>&gt;<i> - Clean up your entries in the wiki so that any names involving 
+</I>&gt;<i> multiple capitals (MemRefExpr) are changed to Mem``Ref``Expr so that 
+</I>&gt;<i> they don't show up as possible links to pages.
+</I>&gt;<i>
+</I>&gt;<i> Luis
+</I>&gt;<i> - Update the wiki with the assumptions you will be using for the 
+</I>&gt;<i> current implementation of linearity.  Go ahead and leave the details 
+</I>&gt;<i> you already have for later upgrades.
+</I>&gt;<i> - Create another page to link off the WhoIsDoingWhat page that 
+</I>&gt;<i> contains the pseudocode for your transfer function.
+</I>&gt;<i>
+</I>&gt;<i> =======================================
+</I>&gt;<i>  Michelle Mills Strout
+</I>&gt;<i>  Assistant Professor
+</I>&gt;<i>
+</I>&gt;<i>  Colorado State University
+</I>&gt;<i>  Computer Science Department
+</I>&gt;<i>  1873 Campus Delivery
+</I>&gt;<i>  Fort Collins, CO 80523-1873
+</I>&gt;<i>
+</I>&gt;<i>  (970) 491-7026
+</I>&gt;<i>  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A> &lt;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>&gt;
+</I>&gt;<i> =======================================
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+Jean Utke
+Argonne National Lab./MCS
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">utke at mcs.anl.gov</A>
+phone: 630 252 4552 
+cell:  630 363 5753
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000073.html">[Openanalysis-dev] Merged UseOA-ROSE memRefExprRefactor branch into	trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#72">[ date ]</a>
+              <a href="thread.html#72">[ thread ]</a>
+              <a href="subject.html#72">[ subject ]</a>
+              <a href="author.html#72">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

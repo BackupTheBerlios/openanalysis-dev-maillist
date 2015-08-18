@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] RegressAll status on April 8th 2008
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20RegressAll%20status%20on%20April%208th%202008&In-Reply-To=%3C39e0b340804091028j3a790a84t157ccfdedf2973d8%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000106.html">
+   <LINK REL="Next"  HREF="000107.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] RegressAll status on April 8th 2008</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20RegressAll%20status%20on%20April%208th%202008&In-Reply-To=%3C39e0b340804091028j3a790a84t157ccfdedf2973d8%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] RegressAll status on April 8th 2008">priyadarshini.malusare at gmail.com
+       </A><BR>
+    <I>Wed Apr  9 19:28:43 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000106.html">[Openanalysis-dev] RegressAll status on April 8th 2008
+</A></li>
+        <LI>Next message: <A HREF="000107.html">[Openanalysis-dev] RegressAll status on April 8th 2008
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Brian,
+
+&gt;<i>
+</I>&gt;<i> &gt;     UseOA-ROSE
+</I>&gt;<i> &gt;             - regressAll (I do not have big picture, does Andy knows ? )
+</I>&gt;<i> &gt;               - FIAliasAliasTag strictlyLocal regress failure
+</I>&gt;<i>
+</I>&gt;<i> What does strictly local mean?
+</I>&gt;<i>
+</I>&gt;<i>
+</I> Strictly local variables are visible to only procedure in which they are
+ declared.  ( SgIRInterface::getLocation( ) also look for strictly local
+locations )
+ All Strictly Local Variables are Must memory references. e.g.
+ if( ..... )
+      p =&gt; a     // a is strictly local
+ else
+      p =&gt; b     // b is strictly local
+
+ here, a and b are strictly local and therefore alias analysis result would
+be,
+ set 1 : ( a, Must)
+ set 2 : ( b, Must)
+ set 3 : ( ( *p, a, b), May)
+
+ This help us not to mistakenly consider  &quot;a&quot; and &quot;b&quot; are alias ( current
+ alias analysis  can go wrong for the above case because it is
+flow-insensitive
+ and unification based )
+
+=======================================================
+
+ Recently, we modified alias analysis so that all memory references in the
+output
+ of Alias Analysis results are &quot;May&quot; aliased.  This approach is quite
+conservative
+ but always correct.
+
+ Our decision of having all memory references &quot;May&quot; was influenced by an
+ example on fortran side where Alias Analysis results were wrong.
+ Consider an example, with multiple function call,
+
+ ==========================================
+  Subroutine foo( p ) { }
+
+  Subroutine bar( )  {
+           foo ( a )    // a is strictly local
+           foo ( b )    // b is strictly local
+   }
+
+   The result of current FIAliasAliasAnalysis,( i.e. unification based)
+   Set 1: ( ( *p, a, b ) , Must) alias.
+
+ ===========================================
+
+   See how FIAlias analysis gives incorrect results because the correct
+analysis
+   would give  ( (*p, a, b) , May ).
+
+   FIAlias fail to understand that there could be an invisible location that
+isn't
+   referenced that *p could be pointing at, which is different than a.
+
+   Therefore, at this point, all are &quot;May&quot; alias sets.
+
+   Strictly Local is just an optimization to improve the precision of
+   Alias Analysis results [ the precision that is lost because of
+&quot;everything is May&quot;
+  approach].
+
+   With the strictly local optimization, the results of FIAlias analysis
+would be,
+   set 1 : ( a, Must)
+  set 2 : ( b, Must)
+  set 3 : ( ( *p, a, b), May)
+
+ Thanks,
+-Priyadarshini.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20080409/00c7cad2/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20080409/00c7cad2/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000106.html">[Openanalysis-dev] RegressAll status on April 8th 2008
+</A></li>
+	<LI>Next message: <A HREF="000107.html">[Openanalysis-dev] RegressAll status on April 8th 2008
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

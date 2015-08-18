@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] regression diffs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20regression%20diffs&In-Reply-To=%3C709106.74611.qm%40web30108.mail.mud.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000095.html">
+   <LINK REL="Next"  HREF="000097.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] regression diffs</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20regression%20diffs&In-Reply-To=%3C709106.74611.qm%40web30108.mail.mud.yahoo.com%3E"
+       TITLE="[Openanalysis-dev] regression diffs">priyadarshini_malusare at yahoo.com
+       </A><BR>
+    <I>Thu Aug  9 15:46:54 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000095.html">[Openanalysis-dev] regression diffs
+</A></li>
+        <LI>Next message: <A HREF="000097.html">[Openanalysis-dev] regression diffs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#96">[ date ]</a>
+              <a href="thread.html#96">[ thread ]</a>
+              <a href="subject.html#96">[ subject ]</a>
+              <a href="author.html#96">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jean,
+
+ I do not see the regressAll failure you mentioned below  with 
+ the recent revision of OpenAnalysis and UseOA-Open64.
+
+ I think the problem is you see regressAll failure 
+ because &quot;Statement Order&quot; mismatch in the output
+ of SideEffect/ReachConst/ICFGReachConst which
+ does not mean results are incorrect.
+
+
+In order to fix the problem of 
+&quot;Statement Order mismatch in the Output&quot;, 
+we regenerate the regressAll output 
+on okapi and consider that as &quot;reference&quot; because
+okapi is the main machine for our experiments.    
+  
+ Is there any alternative ?
+
+ However, today, I see following difference wrt few testcases
+ for the ./FORTRANtoOA
+
+----------------------------------------------------------------------------------------
+
+&lt;     MEMREFEXPRS = { StmtHandle(&quot;VUSE &lt;1,20,globals_&gt;
+---
+&gt;<i>     MEMREFEXPRS = { StmtHandle(&quot;USE &lt;1,20,globals_&gt;
+</I>
+---------------------------------------------------------------------------------------------
+
+The OpenAnalysis and UseOA-Open64 revision I am using:
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">malusare at okapi</A> OpenAnalysis]$ svn info
+Path: .
+URL: svn+<A HREF="ssh://svn.berlios.de/svnroot/repos/openanalysis/OpenAnalysis/trunk">ssh://svn.berlios.de/svnroot/repos/openanalysis/OpenAnalysis/trunk</A>
+Repository UUID: b3d7d29f-380a-0410-9641-e73d6540ff72
+Revision: 453
+Node Kind: directory
+Schedule: normal
+Last Changed Author: utke
+Last Changed Rev: 453
+Last Changed Date: 2007-08-01 23:26:58 -0500 (Wed, 01 Aug 2007)
+
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">malusare at okapi</A> UseOA-Open64]$ svn info
+Path: .
+URL: svn+<A HREF="ssh://svn.berlios.de/svnroot/repos/useoa-open64/trunk">ssh://svn.berlios.de/svnroot/repos/useoa-open64/trunk</A>
+Repository UUID: eac892ec-190f-0410-9fdf-bfd8caa68912
+Revision: 185
+Node Kind: directory
+Schedule: normal
+Last Changed Author: kreaseck
+Last Changed Rev: 185
+Last Changed Date: 2007-07-27 20:45:56 -0500 (Fri, 27 Jul 2007)
+ 
+I wanted to commit some changes to Whirls2OA but in the original
+regressAll has plenty of diffs  in
+Testing TestCases/SideEffect/test.B, TestResults/SideEffect/test.B.out 
+Checked by BK 7/27/2006
+Testing TestCases/SideEffect/Jean2.B, TestResults/SideEffect/Jean2.B.out 
+Checked by BK 7/27/2007
+Testing TestCases/ReachConsts/constprop_if1a.B, 
+TestResults/ReachConsts/constprop_if1a.B.out Checked by BK 08/29/06
+Testing TestCases/ReachConsts/constprop_if1.B, 
+TestResults/ReachConsts/constprop_if1.B.out Checked by BK 08/29/06
+etc for all reach const cases:
+&lt;                             ConstDefSet:
+---
+ &gt;                             ConstDef:
+and also for
+Testing TestCases/ReachConsts/constprop_if1a.B, 
+TestResults/ICFGReachConsts/constprop_if1a.B.out Checked by BK 08/29/06
+etc.
+Not sure who needs to fix this. 
+Anyway - once I get the ok from one of you I will commit my Whirl2OA 
+changes. Basically one of the cleanup actions I meant to
+put into mfef90 has to be postponed until we read the generated IR.
+So I added the cleanup stuff to the Open64IRInterface as part ot ReadIR.
+
+Jean
+
+Thanks and Regards,
+-Priyadarshini.
+
+       
+---------------------------------
+Shape Yahoo! in your own image.  Join our Network Research Panel today!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070809/7eee122b/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070809/7eee122b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000095.html">[Openanalysis-dev] regression diffs
+</A></li>
+	<LI>Next message: <A HREF="000097.html">[Openanalysis-dev] regression diffs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#96">[ date ]</a>
+              <a href="thread.html#96">[ thread ]</a>
+              <a href="subject.html#96">[ subject ]</a>
+              <a href="author.html#96">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

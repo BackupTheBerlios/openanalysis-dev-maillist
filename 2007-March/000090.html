@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Pointers for How to write correct and elegant	code.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Pointers%20for%20How%20to%20write%20correct%20and%20elegant%0A%09code.&In-Reply-To=%3C39e0b340703081437q45b72207pbbd16a6df7a2a5c8%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000089.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Pointers for How to write correct and elegant	code.</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Pointers%20for%20How%20to%20write%20correct%20and%20elegant%0A%09code.&In-Reply-To=%3C39e0b340703081437q45b72207pbbd16a6df7a2a5c8%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] Pointers for How to write correct and elegant	code.">priyadarshini.malusare at gmail.com
+       </A><BR>
+    <I>Thu Mar  8 23:37:28 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000089.html">[Openanalysis-dev] Version mismatch error with automake
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+Michelle has suggested some pointers for how to write
+correct and elegant code.
+
+Following are the modifications done for MemRefExpr and
+Location class in the OpenAnlysis revision 317.
+
+Please see difference between Old Code and the new Code.
+
+
+1.   All 'C'  type casts are replaced by 'C++' style
+      static type casting.
+
+       Old Code:
+       AddressOf *ref = (AddressOf *)(&amp;other);
+
+        New Code:
+       AddressOf&amp; ref = static_cast&lt;AddressOf&amp;&gt;(other);
+
+
+2.  Removed redundant computation in comparision
+     operator ( &lt;, =) for all the SubClasses of MemRefExpr.
+     As Base class (MemRefExpr) is already doing it for us.
+     This would improve the computational complexity.
+
+      Old Code:
+
+      bool AddressOf::operator&lt;(MemRefExpr&amp; other)
+      {
+
+          if (  MemRefExpr::operator&lt;(*ref) ||
+               (MemRefExpr::operator==(*ref) &amp;&amp; (getMemRefExpr() &lt;
+ref-&gt;getMemRefExpr() )))
+          {
+                 return true;
+          } else {
+                 return false;
+       }
+
+
+       New Code:
+
+
+      bool AddressOf::operator&lt;(MemRefExpr&amp; other)
+      {
+
+          if (  getMemRefExpr() &lt; ref-&gt;getMemRefExpr() )
+          {
+                 return true;
+          } else {
+                 return false;
+       }
+
+
+3.  Removed semantic  error for operator&lt;.
+      i.e. Operator &lt; should not be true for &quot; ==&quot;
+      as shown in the old code below:
+
+      Old code:
+
+      bool AddressOf::operator&lt;(MemRefExpr&amp; other)
+
+      {
+           if (  getMemRefExpr() &lt; ref-&gt;getMemRefExpr() ||
+                getMemRefExpr() == ref-&gt;getMemRefExpr() ) {
+                    ........
+                }
+      }
+
+
+      New code:
+
+      bool AddressOf::operator&lt;(MemRefExpr&amp; other)
+
+      {
+           if (  getMemRefExpr() &lt; ref-&gt;getMemRefExpr() )
+
+                    ........
+           }
+      }
+
+
+
+Thanks and Regards,
+-Priyadarshini.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070308/f42c6248/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070308/f42c6248/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000089.html">[Openanalysis-dev] Version mismatch error with automake
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

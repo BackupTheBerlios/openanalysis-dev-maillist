@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Bug 8092 in UseOA-ROSE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Bug%208092%20in%20UseOA-ROSE&In-Reply-To=%3CPine.LNX.4.44.0607101235001.22882-100000%40cacao.csl.cornell.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000031.html">
+   <LINK REL="Next"  HREF="000030.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Bug 8092 in UseOA-ROSE</H1>
+    <B>Brian White</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Bug%208092%20in%20UseOA-ROSE&In-Reply-To=%3CPine.LNX.4.44.0607101235001.22882-100000%40cacao.csl.cornell.edu%3E"
+       TITLE="[Openanalysis-dev] Bug 8092 in UseOA-ROSE">bwhite at csl.cornell.edu
+       </A><BR>
+    <I>Mon Jul 10 18:38:14 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000031.html">[Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+        <LI>Next message: <A HREF="000030.html">[Openanalysis-dev] Re: CallGraph question
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Andy, Michelle, and others:
+
+Unless you have strong(er) motivation for doing so, I would suggest not
+migrating to 0.8.8a.  In trying to fix the varargs bug, I encountered a
+bug related to varargs and 0.8.8a (but not 0.8.7a).  I have sent this to
+Dan, but don't expect a fix any time soon.  This caused one of our
+benchmarks to abort.
+
+I imagine the bug occurs for a program like:
+
+int *returnSometing() { return; }
+
+If I remember correctly, when deciding whether the return statement
+is a pointer assignment statement, I look at the return type of the
+function.  This would label this return as a pointer assignment statement,
+though it obviously is not.  There isn't too much point in speculating, I
+will look at this soon.  But I suspect the bug is easy to fix.
+
+Brian
+
+On Mon, 10 Jul 2006, Andy Stone wrote:
+
+&gt;<i> Michelle,
+</I>&gt;<i>
+</I>&gt;<i> I haven't encountered this error before.  I know the old version of
+</I>&gt;<i> Rose (0.8.7a) had difficulties with functions that should return
+</I>&gt;<i> something but don't, like:
+</I>&gt;<i>
+</I>&gt;<i> int main(char argc, char *argv[]) {
+</I>&gt;<i>    doSomething();
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> But it does work with functions that return nothing like this:
+</I>&gt;<i>
+</I>&gt;<i> void foo() {
+</I>&gt;<i>    if( doSomething() ) { return; }
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> I don't know if that's related to your issue at all.
+</I>&gt;<i>
+</I>&gt;<i> -Andy
+</I>&gt;<i>
+</I>&gt;<i> On 7/7/06, Michelle Strout &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>&gt; wrote:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I just submitted a bug about return statements that don't return anything.
+</I>&gt;<i> &gt; This is probably something for Brian to fix, but Andy did you run into this
+</I>&gt;<i> &gt; with your SMP2000 benchmark?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Thanks,
+</I>&gt;<i> &gt; Michelle
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; =======================================
+</I>&gt;<i> &gt;  Michelle Mills Strout
+</I>&gt;<i> &gt;  Assistant Professor
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;  Colorado State University
+</I>&gt;<i> &gt;  Computer Science Department
+</I>&gt;<i> &gt;  1873 Campus Delivery
+</I>&gt;<i> &gt;  Fort Collins, CO 80523-1873
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;  (970) 491-7026
+</I>&gt;<i> &gt;  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+</I>&gt;<i> &gt; =======================================
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Openanalysis-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">Openanalysis-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="http://lists.berlios.de/mailman/listinfo/openanalysis-dev">http://lists.berlios.de/mailman/listinfo/openanalysis-dev</A>
+</I>&gt;<i>
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000031.html">[Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+	<LI>Next message: <A HREF="000030.html">[Openanalysis-dev] Re: CallGraph question
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#32">[ date ]</a>
+              <a href="thread.html#32">[ thread ]</a>
+              <a href="subject.html#32">[ subject ]</a>
+              <a href="author.html#32">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

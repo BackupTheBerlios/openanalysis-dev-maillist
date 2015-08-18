@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Useful%20new%20routine%20in%20UseOA-Open64%20and%20MPICFG&In-Reply-To=%3C50355.140.221.10.207.1176849659.squirrel%40webmail.lasierra.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000091.html">
+   <LINK REL="Next"  HREF="000093.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG</H1>
+    <B>Barbara Kreaseck</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Useful%20new%20routine%20in%20UseOA-Open64%20and%20MPICFG&In-Reply-To=%3C50355.140.221.10.207.1176849659.squirrel%40webmail.lasierra.edu%3E"
+       TITLE="[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG">bkreasec at lasierra.edu
+       </A><BR>
+    <I>Wed Apr 18 00:40:59 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000091.html">[Openanalysis-dev] New Updates for UnanmedRef and UnnamedLoc in	OpenAnalysis .
+</A></li>
+        <LI>Next message: <A HREF="000093.html">[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#92">[ date ]</a>
+              <a href="thread.html#92">[ thread ]</a>
+              <a href="subject.html#92">[ subject ]</a>
+              <a href="author.html#92">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I've added a useful new standalong routine to UseOA-Open64
+(r170) and MPICFG (r357).  It will scan a result *.out file and
+extract the dot output lines and send them to stdout.  Along
+the way, it strips out those pesky PRAGMA statements that
+Open64 inserts into the output stream during the dot output. 
+Those PRAGMA inserts make the direct snarf-and-barf into
+GraphViz impossible.  No Longer!
+
+After a make in an updated UseOA-Open64, you will have an
+extractDOT executable.  Usage:
+
+  extractDOT outputFileName
+    or
+  extractDOT outputFileName &gt; outputFileName.dot
+
+ex:  extractDOT TestResults/ICFG/functions2.b.out
+
+Enjoy!  I know I will not miss having to delete all of the
+PRAGMAs out of the middle of the statement handles at the top
+of each subroutine. =)
+
+-- Barbara
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000091.html">[Openanalysis-dev] New Updates for UnanmedRef and UnnamedLoc in	OpenAnalysis .
+</A></li>
+	<LI>Next message: <A HREF="000093.html">[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#92">[ date ]</a>
+              <a href="thread.html#92">[ thread ]</a>
+              <a href="subject.html#92">[ subject ]</a>
+              <a href="author.html#92">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

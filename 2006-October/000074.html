@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] problem with Sage2OA.h:toString(const	OA::StmtHandle h) line number 603
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-October/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20problem%20with%20Sage2OA.h%3AtoString%28const%0A%09OA%3A%3AStmtHandle%20h%29%20line%20number%20603&In-Reply-To=%3CDCD55705-C9A3-42DC-B59A-C34C854D075B%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000073.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] problem with Sage2OA.h:toString(const	OA::StmtHandle h) line number 603</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20problem%20with%20Sage2OA.h%3AtoString%28const%0A%09OA%3A%3AStmtHandle%20h%29%20line%20number%20603&In-Reply-To=%3CDCD55705-C9A3-42DC-B59A-C34C854D075B%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] problem with Sage2OA.h:toString(const	OA::StmtHandle h) line number 603">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Thu Oct 26 19:08:53 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000073.html">[Openanalysis-dev] Merged UseOA-ROSE memRefExprRefactor branch into	trunk
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Priya (and some questions for Brian),
+
+
+On Oct 26, 2006, at 8:43 AM, Priyadarshini Malusare wrote:
+
+&gt;<i> Hi Michelle,
+</I>&gt;<i>
+</I>&gt;<i>   When I added following condition to Sage2OA.h::toString(const  
+</I>&gt;<i> OA::StmtHandle h),
+</I>&gt;<i>   we do not get core dump as well as current output of CFG match  
+</I>&gt;<i> exactly
+</I>&gt;<i>   with the previous output.
+</I>&gt;<i>
+</I>&gt;<i>    SgExpression * sgExp= isSgExpression(node);
+</I>&gt;<i>    if( sgExp ) {
+</I>&gt;<i>                  return sgExp-&gt;unparseToString();
+</I>&gt;<i>     }
+</I>
+Ok, I see now that in the Sage AST (I am looking at the swap.c.dot in  
+TestResults/AliasIRInterface) that the increment in a SgForStatement  
+is a SgExpressionRoot, which for Sage is an Expression.  The  
+increment is modeled to OA as a statement for the purpose of  
+generating a CFG.  Therefore, anywhere in UseOA-ROSE that we are  
+handling StmtHandles, we need to know that we could get a  
+SgExpressionRoot.  Please add the following comment above your fix:
+
+	// Loop increments are SgExpression's, but they are given as a  
+StmtHandle for CFGIRInterface
+
+If you look at the implementation of toString before the merge, you  
+will see
+
+	 if(h!=0)  	
+           { 	
+           SgStatement * sgstmt=(SgStatement*)(getNodePtr(h)); 	
+           return sgstmt-&gt;unparseToString();
+
+which involves a cast that is not checked at runtime.  We just lucked  
+out that the unparseToString for SgStatement worked for a  
+SgExpressionRoot as well.
+
+
+&gt;<i>
+</I>&gt;<i>    I was wondering why do we have SgNewExpr instead of SgExpression,
+</I>&gt;<i>    I did not understand following comment for SgNewExpr.
+</I>&gt;<i>
+</I>&gt;<i>    // We stash new expression and mallocs
+</I>&gt;<i>    // into the statements of UnnamedRefs.
+</I>&gt;<i>    SgNewExp *newExp = isSgNewExp(node);
+</I>
+UnnamedRef's contain a statement handle to indicate where the unnamed  
+location being referenced was generated.  Since there could be  
+multiple unnamed allocations in the same statement, Brian is  
+currently passing a more specific node in as the StmtHandle.   
+SgNewExp for a call to new, SgFunctionCall for a call to malloc, and  
+SgStringVal for string initializations.
+
+Here are some questions for Brian,
+	- what about other array initializations?
+	- where else does such logic show up?  It seems that we should wrap  
+this all somewhere.  Maybe we can have a verifyStmtHandle or  
+something like that?
+
+Thanks,
+Michelle
+
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20061026/5c374883/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20061026/5c374883/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000073.html">[Openanalysis-dev] Merged UseOA-ROSE memRefExprRefactor branch into	trunk
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#74">[ date ]</a>
+              <a href="thread.html#74">[ thread ]</a>
+              <a href="subject.html#74">[ subject ]</a>
+              <a href="author.html#74">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

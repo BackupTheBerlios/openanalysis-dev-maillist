@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] missing Location for static class variable
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-August/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20missing%20Location%20for%20static%20class%20variable&In-Reply-To=%3C0ABB9549-A76B-4BCC-B031-E3C9B3740669%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000067.html">
+   <LINK REL="Next"  HREF="000069.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] missing Location for static class variable</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20missing%20Location%20for%20static%20class%20variable&In-Reply-To=%3C0ABB9549-A76B-4BCC-B031-E3C9B3740669%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] missing Location for static class variable">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Thu Aug 24 22:19:14 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000067.html">[Openanalysis-dev] Weekly status report #5, Aug 5 through Aug 21
+</A></li>
+        <LI>Next message: <A HREF="000069.html">[Openanalysis-dev] New svn commit for OpenAnalysis(r210),	UseOA-ROSE(r174) and UseOA-Open64(r70)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#68">[ date ]</a>
+              <a href="thread.html#68">[ thread ]</a>
+              <a href="subject.html#68">[ subject ]</a>
+              <a href="author.html#68">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Brian,
+
+I CC'ed the list because this is a question that comes up a lot.
+
+On Aug 24, 2006, at 2:14 PM, Brian White wrote:
+
+&gt;<i>
+</I>&gt;<i> Michelle,
+</I>&gt;<i>
+</I>&gt;<i> OK, I see the issue and have fixed it.  But before I do a checkin,  
+</I>&gt;<i> I would
+</I>&gt;<i> like to go over the logic of getLocation wrt to variables.
+</I>&gt;<i>
+</I>&gt;<i> In my latest version, I have:
+</I>&gt;<i>
+</I>&gt;<i> getLocation(procHandle, sym)
+</I>&gt;<i>
+</I>&gt;<i> enclosingProcedure = getEnclosingProcedure(sym)
+</I>&gt;<i>
+</I>&gt;<i> if ( enclosingProcedure of sym is NULL )
+</I>&gt;<i>     // variable is declared globally or within a class/struct
+</I>&gt;<i>     // consider it non-local
+</I>&gt;<i>     isLocal = false
+</I>&gt;<i> else
+</I>&gt;<i>     if ( enclosingProcedure == procHandle )
+</I>&gt;<i>         // this variable is declared within the procedure,
+</I>&gt;<i>         // must be local
+</I>&gt;<i>         isLocal = true
+</I>&gt;<i>     else
+</I>&gt;<i>         // hmmm ... enclosingProcedure is non-NULL but
+</I>&gt;<i>         // is not the same as procHandle.  evidently,
+</I>&gt;<i>         // sym is not visible within procHandle
+</I>&gt;<i>         return NULL
+</I>&gt;<i>
+</I>&gt;<i> loc = new NamedLoc(sym, isLocal)
+</I>&gt;<i> return loc
+</I>&gt;<i>
+</I>&gt;<i> My question regards the first case:  how does the concept of location
+</I>&gt;<i> relate to classes/structs.  e.g., if a member variable is private  
+</I>&gt;<i> should
+</I>&gt;<i> it be considered local to methods of its class?  global, but invisible
+</I>&gt;<i> outside methods of its class?  Just plain global (as I've done above)?
+</I>&gt;<i>
+</I>&gt;<i> How are these questions answered for public member variables?   
+</I>&gt;<i> protected?
+</I>
+All member variables are &quot;not local&quot; in OA terminology.  The  
+definition of local in OA means that a variable is ONLY visible  
+within that one procedure.  That is not the case for member variables  
+since even if they are private they are visible in all member methods.
+
+-Michelle
+
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060824/1d055fc9/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060824/1d055fc9/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000067.html">[Openanalysis-dev] Weekly status report #5, Aug 5 through Aug 21
+</A></li>
+	<LI>Next message: <A HREF="000069.html">[Openanalysis-dev] New svn commit for OpenAnalysis(r210),	UseOA-ROSE(r174) and UseOA-Open64(r70)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#68">[ date ]</a>
+              <a href="thread.html#68">[ thread ]</a>
+              <a href="subject.html#68">[ subject ]</a>
+              <a href="author.html#68">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

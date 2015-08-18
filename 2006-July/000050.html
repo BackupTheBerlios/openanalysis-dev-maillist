@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Formatting diffs in regressAll (low priority)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Formatting%20diffs%20in%20regressAll%20%28low%20priority%29&In-Reply-To=%3C7F70C2BD-908B-4335-A74C-EE241508868D%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   <LINK REL="Next"  HREF="000051.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Formatting diffs in regressAll (low priority)</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Formatting%20diffs%20in%20regressAll%20%28low%20priority%29&In-Reply-To=%3C7F70C2BD-908B-4335-A74C-EE241508868D%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] Formatting diffs in regressAll (low priority)">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Thu Jul 20 20:14:47 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">[Openanalysis-dev] OA revision 156
+</A></li>
+        <LI>Next message: <A HREF="000051.html">[Openanalysis-dev] OpenAnalysis revision 159, UseOA revision 122
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I am sending this email to the list so that we have a record of the  
+formatting issues, but I think these are low priority.
+
+When UseOA-ROSE is compiled with gcc 4.0.2, it probably links with a  
+different gcc library.  As such some of the formatting appears to  
+change.  Also, there appears to be some minor ordering changes.
+
+1) The &quot;this&quot; location and &quot;method&quot; location are swapped in the output.
+
+Testing TestCases/AliasTests/invokeBaseCtor.C, TestResults/ 
+AliasIRInterface/invokeBaseCtor.C.out checked by BSW 6/26/06
+27d26
+&lt;     LOCATION = { &lt; SymHandle 
+(&quot;method:SubClass::SubClass__SubClass__scope__SubClass____MFb_SubClass__ 
+Fb_v_Gb___Rb__Base__Re___Fe_&quot;), not local &gt; }
+28a28
+ &gt;     LOCATION = { &lt; SymHandle 
+(&quot;method:SubClass::SubClass__SubClass__scope__SubClass____MFb_SubClass__ 
+Fb_v_Gb___Rb__Base__Re___Fe_&quot;), not local &gt; }
+63a64
+ &gt;     LOCATION = { &lt; SymHandle 
+(&quot;this::SubSubClass::SubSubClass__SubSubClass__scope__SubSubClass____MFb 
+_SubSubClass__Fb_v_Gb___Rb__Base__Re____sep____Rb__i__Re___Fe_&quot;),  
+local &gt; }
+66d66
+&lt;     LOCATION = { &lt; SymHandle 
+(&quot;this::SubSubClass::SubSubClass__SubSubClass__scope__SubSubClass____MFb 
+_SubSubClass__Fb_v_Gb___Rb__Base__Re____sep____Rb__i__Re___Fe_&quot;),  
+local &gt; }
+
+
+2) Floating point numbers are formatted to a different length.
+
+Testing TestCases/ICFG/functions6.c, TestResults/ICFG/ 
+functions6.c.out checked by BK 7/13/06
+153c153
+&lt; float x =(4.50000000000000000000000);
+---
+ &gt; float x =(4.500000000000000);
+255c255
+&lt;         19 [ label=&quot;==  ICFG CFLOW_NODE 19 ==\nint n = 7;\nfloat x = 
+(4.50000000000000000000000);\n&quot; ];
+---
+ &gt;         19 [ label=&quot;==  ICFG CFLOW_NODE 19 ==\nint n = 7;\nfloat x  
+=(4.500000000000000);\n&quot; ];
+
+
+-Michelle
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060720/6d9c4674/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060720/6d9c4674/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">[Openanalysis-dev] OA revision 156
+</A></li>
+	<LI>Next message: <A HREF="000051.html">[Openanalysis-dev] OpenAnalysis revision 159, UseOA revision 122
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] New Updates for UnanmedRef and UnnamedLoc in	OpenAnalysis .
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20New%20Updates%20for%20UnanmedRef%20and%20UnnamedLoc%20in%0A%09OpenAnalysis%20.&In-Reply-To=%3C39e0b340704160826u777d4286o50cc7fa25965be9b%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000092.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] New Updates for UnanmedRef and UnnamedLoc in	OpenAnalysis .</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20New%20Updates%20for%20UnanmedRef%20and%20UnnamedLoc%20in%0A%09OpenAnalysis%20.&In-Reply-To=%3C39e0b340704160826u777d4286o50cc7fa25965be9b%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] New Updates for UnanmedRef and UnnamedLoc in	OpenAnalysis .">priyadarshini.malusare at gmail.com
+       </A><BR>
+    <I>Mon Apr 16 17:26:05 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000092.html">[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+Changed the Semantics of  UnnamedRef and UnnamedLoc
+to Use ExprHandle instead of StmtHandle.
+
+UnnamedRef:
+
+Old:
+     UnnamedRef(memRefType, StmtHandle)
+
+New:
+      UnnamedRef(memRefType, ExprHandle).
+
+
+UnnamedLoc:
+
+Old:
+     UnnamedLoc(StmtHandle , ....)
+
+New:
+      UnnamedLoc(ExprHandle , ....)
+
+Corresponding modifcations are done for
+the Open64IRInterface and SageIRInterface.
+
+Regenerated TestCases on both UseOA-ROSE
+and UseOA-Open64 side that are affected due
+to this change.
+
+
+Changes are incuded in:
+OpenAnalysis Revision:  351
+UseOA-Open64 Revision: 168
+UseOA-Open64 Revision:  285.
+
+Thanks and Regards,
+-Priyadarshini.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070416/ce74fbe7/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070416/ce74fbe7/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000092.html">[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

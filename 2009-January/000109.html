@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Problem in OpenAnalysis's Installation procedure
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Problem%20in%20OpenAnalysis%27s%20Installation%20procedure&In-Reply-To=%3C496C59E9.80204%40dps.uibk.ac.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000111.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Problem in OpenAnalysis's Installation procedure</H1>
+    <B>Simone Pellegrini</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Problem%20in%20OpenAnalysis%27s%20Installation%20procedure&In-Reply-To=%3C496C59E9.80204%40dps.uibk.ac.at%3E"
+       TITLE="[Openanalysis-dev] Problem in OpenAnalysis's Installation procedure">spellegrini at dps.uibk.ac.at
+       </A><BR>
+    <I>Tue Jan 13 10:07:53 CET 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000111.html">[Openanalysis-dev] Problem in OpenAnalysis's Installation	procedure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#109">[ date ]</a>
+              <a href="thread.html#109">[ thread ]</a>
+              <a href="subject.html#109">[ subject ]</a>
+              <a href="author.html#109">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dear all,
+I installed OpenAnalysis on my machine and I got a compilation error 
+during the make procedure.
+
+I am using the latest Gcc 4.3.2 and the problem is within the file: 
+src/OpenAnalysis/Utils/Util.hpp
+
+The error is the following:
+DataFlow/CallGraphDFSolver.cpp: In constructor 
+&#8216;OA::DataFlow::CallGraphDFSolver::CallGraphDFSolver(OA::DataFlow::CallGraphDFSolver::CallGraphDirectionType, 
+OA::DataFlow::CallGraphDFProblem&amp;)&#8217;:
+DataFlow/CallGraphDFSolver.cpp:29: error: &#8216;getenv&#8217; was not declared in 
+this scope
+DataFlow/CallGraphDFSolver.cpp:29: warning: deprecated conversion from 
+string constant to &#8216;char*&#8217;
+make[2]: *** [libOAul_a-CallGraphDFSolver.o] Error 1
+make[2]: Leaving directory 
+`/home/spellegrini/Desktop/OpenAnalysis-0.3a1/src/OpenAnalysis'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory 
+`/home/spellegrini/Desktop/OpenAnalysis-0.3a1/src'
+make: *** [all-recursive] Error 1
+
+Actually the error is simple solvable because what you need is to 
+insclude the cstdlib libreaty in the Util.hpp file:
+...
+#ifndef OA_Util_H
+#define OA_Util_H
+
+#include &lt;cstdlib&gt;
+#include &lt;string&gt;
+
+// Could use templates within OA namespace
+...
+
+and this fixes the problem in my configuration.
+
+regards Simone Pellegrini
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000111.html">[Openanalysis-dev] Problem in OpenAnalysis's Installation	procedure
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#109">[ date ]</a>
+              <a href="thread.html#109">[ thread ]</a>
+              <a href="subject.html#109">[ subject ]</a>
+              <a href="author.html#109">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

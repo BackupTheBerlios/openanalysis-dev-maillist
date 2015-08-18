@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] New Build System for OpenAnalysis
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20New%20Build%20System%20for%20OpenAnalysis&In-Reply-To=%3Cfbd74aee0611071214g60a4c6dbq673d51df809eb08e%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000076.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] New Build System for OpenAnalysis</H1>
+    <B>Andy Stone</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20New%20Build%20System%20for%20OpenAnalysis&In-Reply-To=%3Cfbd74aee0611071214g60a4c6dbq673d51df809eb08e%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] New Build System for OpenAnalysis">aistone at gmail.com
+       </A><BR>
+    <I>Tue Nov  7 21:14:21 CET 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000076.html">[Openanalysis-dev] svn commit for UseOA-Open64
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#75">[ date ]</a>
+              <a href="thread.html#75">[ thread ]</a>
+              <a href="subject.html#75">[ subject ]</a>
+              <a href="author.html#75">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi All,
+
+OpenAnalysis and UseOA-ROSE have a new build system.  The major
+difference is that environmental variables for OA projects are now
+prefixed with the projectname.  For example: CXXFLAGS is now
+OA_CXXFLAGS for OpenAnalayis and USEOA_ROSE_CXXFLAGS for UseOA-Rose.
+Also, the makefile will output a build.log file describing the state
+of these variables when run.
+
+I've made these changes since having unique names for each project
+made writing a series of scripts I did for benchmarks easier.  I think
+organizing it this way will prove useful in the long run.
+
+I've provided a script (available for download at the WIKI) for
+configuring all of these environmental variables.  I suggest you
+download it, configure it, and source it in your .bashrc or .cshrc.
+See the page on the WIKI about it at:
+<A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/DeveloperScript">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/DeveloperScript</A>
+
+If you're using Okapi see the notes on the WIKI at:
+<A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/NewBuildNotes">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/NewBuildNotes</A>
+
+Thanks,
+-Andy
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000076.html">[Openanalysis-dev] svn commit for UseOA-Open64
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#75">[ date ]</a>
+              <a href="thread.html#75">[ thread ]</a>
+              <a href="subject.html#75">[ subject ]</a>
+              <a href="author.html#75">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

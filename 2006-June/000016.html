@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] UseOA-ROSE Rev. 92
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20UseOA-ROSE%20Rev.%2092&In-Reply-To=%3CPine.LNX.4.44.0606291336010.23678-100000%40cacao.csl.cornell.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000013.html">
+   <LINK REL="Next"  HREF="000017.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] UseOA-ROSE Rev. 92</H1>
+    <B>Brian White</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20UseOA-ROSE%20Rev.%2092&In-Reply-To=%3CPine.LNX.4.44.0606291336010.23678-100000%40cacao.csl.cornell.edu%3E"
+       TITLE="[Openanalysis-dev] UseOA-ROSE Rev. 92">bwhite at csl.cornell.edu
+       </A><BR>
+    <I>Thu Jun 29 19:39:22 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000013.html">[Openanalysis-dev] UseOA-ROSE Rev. 83
+</A></li>
+        <LI>Next message: <A HREF="000017.html">[Openanalysis-dev] ChangeLog in OpenAnalysis
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I've just checked in a revision that fixes three bugs:
+
+- Abort on cout &lt;&lt; endl reported by Andy.
+- [Bug #7963] Deref of &quot;this&quot; being passed as implicit param.
+- [Bug #7962] Member fields, methods, and functions should be non-local.
+
+I've also made some revisions to the staticVirtualMethodResolver, which
+should now be ready for prime time.  Unfortunately, to work correctly
+(though not to compile), this requires changes to ROSE.  I have made these
+changes locally and will send to Dan for the next release.  Until someone
+needs to use this (and I suspect you won't), don't worry about the mods to
+ROSE.
+
+Brian
+
+6/28/06   UseOA-ROSE svn tag trunk r92  Brian White
+        - Modified isMethodCall so that it returns false for
+          static method calls.  isMethodCall is used to determine
+          whether we need to pass an implicit &quot;this&quot; to model a
+          method.  We don't need to do this (and can't) for a static
+          method call.
+        - Modified SageIRInterface::toString(const OA::CallHandle h)
+          to output a function call which is an invocation of a copy
+          constructor implicitly called by a return.
+        - I started working on handling of special methods (next
+	  entry).  However, Dan wanted this behavior in ROSE so that
+	  it could be &quot;enjoyed&quot; by any ROSE analysis.  Therefore, I
+	  have commented out my implementation of this behavior.
+	  Note that it was not finished.  See comments that look like:
+          // Support for special methods, which is now handled in ROSE.
+        [ Handling of compiler-generated default constructors, copy
+          constructors, destructors, and operator=.
+
+	  - Modified getAliasStmtType to return PTR_ASSIGN_STMT when:
+            1.  stmt is operator= and one of the implicitly invoked
+                operator= along the call chain (if any) would
+                implicitly copy a point.
+                NB:  the default behavior of operator= is to do a
+                     memberwise copy.
+            2.  stmt invokes a copy constructor:
+	        NB:  the default behavior of a copy constructor is
+                     to perform memberwise copy.
+                a.  case Foo *f = new Foo(*someOtherFoo) is already
+                    handled by SgAssignOp case, which always returns
+                    PTR_ASSIGN_STMT.
+                b.  case Foo f(someOtherFoo) is handled by
+                    SgVariableDeclaration case which returns true
+                    whenever an object is declared.
+                c.  case f(someOtherFoo) within a copy constructor.
+	            Return PTR_ASSIGN_STMT if some compiler-generated
+                    copy constructor invoked prior to a user-defined
+                    copy constructor would implicitly copy a ptr
+                    field (i.e., it's class has (non-method) pointer
+members).
+	    3.  destructors.  Since a default destructor would not
+                implicit perform pointer assignments, we don't need to
+                model anything here.
+            4.  default (i.e., zero-arg) constructor.  Same as destructor
+	        case.
+         ]
+	 - In CtoA set the excludeInputFiles to true for the
+	   SageIRProcIterator.  This prevents us from generating output
+	   for include files, such as iostream.h
+	   bool excludeInputFiles = true;
+           procIter = new SageIRProcIterator(sageProject, irInterface,
+excludeInputFiles);
+         - Changes to staticVirtualMethodResolver
+	   - Needed to change
+ClassHierarchyWrapper::ClassHierarchyWrapper,
+	     which was not discovering all SgClassDefinitions, because
+	     it was querying only for SgClassDefinition and some of these
+             are not visited by default traversals/queries.  The example
+	     is from Pande.C.  Unfortunately, this is external to
+	     UseOA and needs to be passed to Dan for checkin to ROSE.
+                // Unfortunately, SgClassDefinitions are not always
+visited by
+                // query and traversal mechanisms.  Consider this example:
+                //  class Base {
+                //  public:
+                //    virtual void foo() { }
+                //    virtual void bar() { }
+                //    virtual void baz() { }
+                //  } *a, *b, *p, *q;
+                // The SgClassDefinition for Base only shows up in the
+                // SgVariableDeclarations of *a, *b, etc.  Therefore, we
+need
+                // to query the SgVariableDeclarations as well.
+           - Replaced methodOverridesVirtualMethod with
+             matchingMemberFunctions, which properly compares two
+             method type signatures.
+	   - Allow dot expression involving a reference lhs to
+             be examined as potential dynamic dispatch sites,
+             rather than just pointer receivers.
+	   - This should now be ready for the big time.
+         - Fixed the following bug reported by Andy on June 8th.
+
+           From: &quot;Andy Stone&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">aistone at gmail.com</A>&gt;
+           Date: June 8, 2006 11:01:11 AM MDT
+           To: &quot;Michelle Strout&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at CS.ColoState.EDU</A>&gt;
+           Subject: FIAliasAliasMap fails with 'variable &lt;&lt; endl'
+
+           Michelle,
+
+           The FiAliasAliasMap algorithm doesn't seem able to handle any
+           situation where a variable is passed to an I/O object and endl
+is
+           passed immediatly after or immediatly before this variable.&#160;
+For
+           instance:&#160; cout &lt;&lt; variable &lt;&lt; endl.
+
+
+
+           Error Message:
+
+           $ ./OATest -edg:w --oa-FIAliasAliasMap -c breakuseoa.cpp
+           OATest: Sage2OA.C:6886: virtual
+           OA::OA_ptr&lt;OA::IRCallsiteParamIterator&gt;
+           SageIRInterface::getCallsiteParams(OA::ExprHandle): Assertion
+           `isMemRefNode(lhs)' failed.
+           Aborted
+
+
+
+           I've tried a few other cases to see if I can't determine
+exactly
+           what
+           reproduces this problem.&#160; For instance
+
+           These work:
+           -&#160; cout &lt;&lt; variable;
+           -&#160; cout &lt;&lt; variable &lt;&lt; &quot; string constant &quot; &lt;&lt; endl;
+           -&#160; cout &lt;&lt; endl &lt;&lt; &quot; string constant &quot; &lt;&lt; variable
+
+           These don't (they reproduce the error):
+           -&#160; cout &lt;&lt; variable &lt;&lt; endl;
+           -&#160; cout &lt;&lt; endl &lt;&lt; variable;
+           -&#160; cerr &lt;&lt; variable &lt;&lt; endl;
+
+
+           I've been playing around with GDB trying to see if I can't
+figure
+           out
+           exactly what's causing this issue.&#160; Let me know if you have any
+           ideas.
+
+           Thanks,
+           -Andy
+
+           Fix: isMemRefNode(functionCallExp) was aborting for
+	   ostream &amp;ostream::operator&lt;&lt; and friends, because
+	   SageIRInterface::returnsAddress was not doing the correct
+           thing.  isMemRefNode should return type for a function/method
+           that returns a pointer or reference.  However, returnsAddress
+           (called by isMemRefNode) was looking at
+functionCallExp-&gt;get_type().
+           I believe in a previous version of ROSE this return the
+           type of the function call expression.  Now it is
+           return a SgFunctionType.  I corrected returnsAddress
+           to expect a SgFunctionType.
+        - Fixed [Bug #7963] Deref of &quot;this&quot; being passed as implicit
+param.
+	  Added a regression test invokeBaseCtor.C in TestCase/CtoOA
+          and corresponding {regress,gen}CtoOA.test files.
+          Bug log:
+Project: UseOA-ROSE
+Category: None
+Status: Closed
+Resolution: Fixed
+Bug Group: None
+Priority: 5
+Submitted by: mstrout
+Assigned to : bwhite
+Summary: Deref of &quot;this&quot; being passed as implicit param
+
+Details: ./CtoOA TestCases/AliasTests/parambinds-formals.C
+
+    PARAMBINDPTRASSIGNPAIRS = { CallHandle(&quot;SubClass&quot;) =&gt;
+        [
+            &lt; 0, Deref( DEF, NamedRef( USE,
+SymHandle(&quot;this::SubSubClass::SubSubClass__SubSubClass__scope__SubSubClass____MF
+b_SubSubClass__Fb_v_Gb___Rb__Base__Re____sep____Rb__i__Re___Fe_&quot;), F,
+full), 1,
+T, part) &gt;
+            &lt; 1, NamedRef( USE, SymHandle(&quot;par&quot;), F, full) &gt;
+        ] }
+
+The zeroth parameter should be a NamedRef to this, not a Deref.
+
+Follow-Ups:
+
+Date: 2006-Jun-26 18:10
+By: bwhite
+
+Comment:
+
+Fix is in SageIRMemRefIterator::findAllMemRefsAndMemRefExprs and will be
+committed in UseOA rev81 (or my next release thereafter if someone beats
+me to
+the punch).
+
+See case V_SgIniitliazedName.  Problem was that I assumed all
+SgInitializedName
+were initializations of an explicit lhs with a rhs.  e.g. 'mInt(0)' below.
+
+class Foo {
+  Foo() : mInt(0);
+  int mInt;
+}
+However, consider the case below where a SgInitializedName is initialized
+by a
+SgConstructorInitializer in a SgCtorInitializerLIst, as in SubClass below:
+
+class SubSubClass : public SubClass {
+   public:
+      SubSubClass(Base &amp;par, int &amp;aint) : SubClass(par) { }
+};
+
+Here SubClass appears as a SgInitializedName within the AST.  However, it
+is
+not a variable, but rather represents the base class constructor.  So, in
+fact,
+the MRE that we create here will not be for a LHS, but for the implicit
+this
+actual argument that we pass as the first argument to SubClass
+constructor.
+        - Fixed [Bug #7962] Member fields, methods, and functions should
+be non-local.
+Details: ./CtoOA TestCases/AliasTests/parambinds-formals.C
+
+    LOCATION = { &lt;
+SymHandle(&quot;method:SubClass::SubClass____ct__FR4Base_v&quot;),
+local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;this::SubClass::SubClass____ct__FR4Base_v&quot;),
+local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;par&quot;), local &gt; }
+    LOCATION = { &lt; SymHandle(&quot;myParent&quot;), local &gt; }
+
+myParent and the method should not be local.
+
+    LOCATION = { &lt; SymHandle(&quot;foo_ref1&quot;), local &gt; }
+
+neither should foo_ref1.  Pretty much all methods, member vars, and
+function
+symbols should not be local.
+
+
+Follow-Ups:
+
+Date: 2006-Jun-29 10:19
+By: bwhite
+
+Comment:
+We were setting isLocal = true for all methods and functions in
+getLocation.
+The comment in those cases (V_SgFunctionDeclaration and
+V_SgMemberFunctionDeclaration) is correct, but the flag was set
+incorrectly, as
+Michelle points out.
+Fix:  simply set isLocal = false.
+Added TestCase/CtoA/localNonLocal.c as a regression test for this bug.
+        - Regenerated results for comma.c, constQualified.c,
+functionPtr.c,
+	  and functionPtr2.c (regressFIAliasAliasMap tests) and alias1.c,
+	  alias2.c, alias4.c alias4b.c, and comma.c
+(regressAliasIRInterface), all of which were affected by above isLocal
+bug.
+        - Moved invokeBaseCtor.C and localNonLocal tests to
+	  AliasIRInterface.test and removed CtoOA.test
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000013.html">[Openanalysis-dev] UseOA-ROSE Rev. 83
+</A></li>
+	<LI>Next message: <A HREF="000017.html">[Openanalysis-dev] ChangeLog in OpenAnalysis
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

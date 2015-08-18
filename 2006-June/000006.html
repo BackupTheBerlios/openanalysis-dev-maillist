@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] UseOA-ROSE Rev. 79
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20UseOA-ROSE%20Rev.%2079&In-Reply-To=%3Cfbd74aee0606260933w5e6d9cc3i76f4f08e42357f4a%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000005.html">
+   <LINK REL="Next"  HREF="000007.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] UseOA-ROSE Rev. 79</H1>
+    <B>Andy Stone</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20UseOA-ROSE%20Rev.%2079&In-Reply-To=%3Cfbd74aee0606260933w5e6d9cc3i76f4f08e42357f4a%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] UseOA-ROSE Rev. 79">aistone at gmail.com
+       </A><BR>
+    <I>Mon Jun 26 18:33:36 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000005.html">[Openanalysis-dev] UseOA-ROSE Rev. 79
+</A></li>
+        <LI>Next message: <A HREF="000007.html">[Openanalysis-dev] TestCase: Alias3.c AliasIRInterface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Brian,
+
+&gt;<i> I think you may have forgotten to add FIAliasAliasMap.script in scripts?
+</I>
+There is no FIAliasAliasMap.script but I did forgot to add
+genFIAliasAliasMap.script and regressFIAliasAliasMap.script, thanks
+for letting me know.
+
+&gt;<i> Also, would folks please not delete variables from Makefile.inc pertaining
+</I>&gt;<i> to other peoples' environments?  Not a big deal, but I would prefer not to
+</I>&gt;<i> have to look up directories every time I do an update.  I will try to do a
+</I>&gt;<i> better job of deleting my own stale entries.
+</I>
+I'll try to not to do so.  Usually what I do after an update is:
+cd config;
+mv config.inc.mine config.inc
+svn resolved config.inc
+
+So far this has worked out well (less typing) but it's kind of
+dangerous thing to do since if someone were to add a new variable I
+might carelessly not notice.
+
+Thanks,
+-Andy
+
+On 6/26/06, Brian White &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">bwhite at csl.cornell.edu</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Hi Andy,
+</I>&gt;<i>
+</I>&gt;<i> I think you may have forgotten to add FIAliasAliasMap.script in scripts?
+</I>&gt;<i> I don't see it.
+</I>&gt;<i>
+</I>&gt;<i> Also, would folks please not delete variables from Makefile.inc pertaining
+</I>&gt;<i> to other peoples' environments?  Not a big deal, but I would prefer not to
+</I>&gt;<i> have to look up directories every time I do an update.  I will try to do a
+</I>&gt;<i> better job of deleting my own stale entries.
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Brian
+</I>&gt;<i>
+</I>&gt;<i> On Fri, 23 Jun 2006, Andy Stone wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt; Hi all,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I've updated UseOA-ROSE with a handful of regression tests for FIAliasAliasMap.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; 6/23/06    UseOA-ROSE svn tag trunk r79 Andy Stone
+</I>&gt;<i> &gt;     - Added 10 regression tests for the FIAliasAliasMap.  These tests are
+</I>&gt;<i> &gt;       for alias1.c, alias2.c, alias3.c, alias4.c, alias4b.c, comma.c,
+</I>&gt;<i> &gt;       funCall.c utke.c, OAWikiEx.c, and constQualified.c.  Also added
+</I>&gt;<i> &gt;       template.test to the scripts directory.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; -Andy
+</I>&gt;<i> &gt; _______________________________________________
+</I>&gt;<i> &gt; Openanalysis-dev mailing list
+</I>&gt;<i> &gt; <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">Openanalysis-dev at lists.berlios.de</A>
+</I>&gt;<i> &gt; <A HREF="http://lists.berlios.de/mailman/listinfo/openanalysis-dev">http://lists.berlios.de/mailman/listinfo/openanalysis-dev</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000005.html">[Openanalysis-dev] UseOA-ROSE Rev. 79
+</A></li>
+	<LI>Next message: <A HREF="000007.html">[Openanalysis-dev] TestCase: Alias3.c AliasIRInterface
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

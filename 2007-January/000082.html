@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] confusion between SubSetRef(partial	Accuracy) and FieldAccess(fullAccuracy)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20confusion%20between%20SubSetRef%28partial%0A%09Accuracy%29%20and%20FieldAccess%28fullAccuracy%29&In-Reply-To=%3CB51C5E55-5F07-4AF3-96F9-CBE317DCAF09%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000081.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] confusion between SubSetRef(partial	Accuracy) and FieldAccess(fullAccuracy)</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20confusion%20between%20SubSetRef%28partial%0A%09Accuracy%29%20and%20FieldAccess%28fullAccuracy%29&In-Reply-To=%3CB51C5E55-5F07-4AF3-96F9-CBE317DCAF09%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] confusion between SubSetRef(partial	Accuracy) and FieldAccess(fullAccuracy)">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Mon Jan 29 16:53:29 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000081.html">[Openanalysis-dev] Documentation development underway
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Priya,
+
+These are all very good questions, so I am going to send the answer  
+to the whole group.
+
+On Jan 28, 2007, at 10:25 PM, Priyadarshini Malusare wrote:
+
+&gt;<i> Hi Michelle,
+</I>&gt;<i>
+</I>&gt;<i> I have a basic question...
+</I>&gt;<i>
+</I>&gt;<i> We use SubSetRef to represent Partial Accuracy.
+</I>
+The way we have been talking about it, it does seem that that is the  
+case.  There are actually two concepts here.  One is are we accessing  
+only part of a location or the full location.  The other concept is  
+are we representing the access will full accuracy.  In the old setup  
+when we had the full accuracy field, we were overloading that field  
+to mean subset when we had an array access like A[i].  We were  
+modeling that array access with a NamedRef with partial accuracy.   
+That partial accuracy was then being interpreted both as we weren't  
+representing the access with full accuracy and that we should treat  
+it as accessing some unknown subset of the location the MRE  
+accessed.  In the new setup, we are completely getting rid of the  
+fullAccuracy field.  Now if we see something like A[4] we can  
+represent it in two ways: as a SubSetRef(NamedRef(A)) or as an  
+IdxAccess(4,NamedRef(A)).  The semantics of the SubSetRef is that it  
+means some unknown subset of the MRE is being accessed.  Therefore  
+the SubSetRef instance represent partial accuracy as well as  
+referencing a subset.  IdxAccess, FieldAccess, and other subclasses  
+for SubSetRef have full accuracy, but still represent some kind of  
+subset operation.
+
+&gt;<i> FieldAccess and IdxAccess are subclasses of SubSetRef.
+</I>&gt;<i> FieldAccess &quot;is a SubSetRef&quot;.
+</I>&gt;<i> Thus, it should always have partial accuracy.
+</I>
+Based on the interpretation I give above, no.
+
+&gt;<i> I am thinking what would be the equivalent representation for
+</I>&gt;<i> a. FieldAccess with full accuracy in the following case: ?
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------------------------------------------- 
+</I>&gt;<i> ---------------------------------------------------------------------- 
+</I>&gt;<i> -
+</I>&gt;<i> FieldAccess( DEF, ...., someRef, full)
+</I>&gt;<i> ---------------------------------------------------------------------- 
+</I>&gt;<i> ---------------------------------------------------------------------- 
+</I>&gt;<i> -
+</I>
+FieldAccess(DEF, ..., someRef)
+
+You don't need the full accuracy field anymore.
+
+&gt;<i> b. Is it valid to think as FieldAccess with fullAccuracy ?
+</I>
+Yes.
+
+&gt;<i> c. Should we just create instance of FieldAccess for above case ?
+</I>
+I am not sure what you mean by the &quot;above case&quot;.
+
+&gt;<i> If that is true, then Wouldn't that create a confusion to recognize
+</I>&gt;<i>
+</I>&gt;<i> a.  SubSetRef (for partial accuracy)
+</I>&gt;<i> b.  FieldAccess with full Accuracy.
+</I>&gt;<i>
+</I>&gt;<i> I think if we get instance of FieldAccess with fullAccuracy
+</I>&gt;<i> and ask if( mre-&gt;isaSubSetRef() ), we would get answer = &quot;yes&quot;.
+</I>&gt;<i> and we may interpret wrong that mre has partial Accuracy.
+</I>
+Good point.  Notice however that not doing further investigation to  
+see if the SubSetRef is really a FieldAccess instance will still  
+result in conservatively correct results.  Assuming a subset access  
+is partially accurate is always an correct conservative assumption.
+
+
+&gt;<i> d. While creating instance of SubSetRef class should we
+</I>&gt;<i>     ignore instances of FieldAccess. ?
+</I>
+If you have something like &quot;x.fieldname&quot;, then you can create a  
+SubSetRef or a FieldAccess, but not both.  If a field access has  
+already been created then stick with that.
+
+-Michelle
+
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070129/9c43cf9b/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070129/9c43cf9b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000081.html">[Openanalysis-dev] Documentation development underway
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

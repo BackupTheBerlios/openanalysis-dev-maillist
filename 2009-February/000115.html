@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] AliasTag branch - boost question - again
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20AliasTag%20branch%20-%20boost%20question%20-%20again&In-Reply-To=%3C499C5FBA.1090909%40mcs.anl.gov%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000116.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] AliasTag branch - boost question - again</H1>
+    <B>Jean Utke</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20AliasTag%20branch%20-%20boost%20question%20-%20again&In-Reply-To=%3C499C5FBA.1090909%40mcs.anl.gov%3E"
+       TITLE="[Openanalysis-dev] AliasTag branch - boost question - again">utke at mcs.anl.gov
+       </A><BR>
+    <I>Wed Feb 18 20:21:30 CET 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000116.html">[Openanalysis-dev] AliasTag branch - boost question - again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I think I asked this question before but has to be set let  UseOA_open64
+find boost?
+I get
+
+Outputing flags to build.log
+g++ -fPIC -D__GNU_BUG_WORKAROUND -c -o test-open64.o 
+-DOA_IRHANDLETYPE_UL -I.
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/UseOA_Open64/Whirl2OA
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include
+-D_LANGUAGE_C_PLUS_PLUS -D_DEBUG -D_LINUX_LINUX -D_SGI_SOURCE
+-D_SVR4_SOURCE -DTARG_IA64 -DCOMPILE_UPC -D_NEW_SYMTAB -D_MIPSEL
+-D_LONGLONG -D_MIPS_SZINT=32 -D_MIPS_SZPTR=32 -D_MIPS_SZLONG=32
+-D__MIPS_AND_IA64_ELF_H -DIs_True_On -DMONGOOSE_BE -DBACK_END
+-DBUILD_WHIRL2F
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/Open64/osprey1.0/include
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/Open64/osprey1.0/common/com
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/Open64/osprey1.0/common/com/ia64
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/Open64/osprey1.0/common/util
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/Open64/osprey1.0/be/com
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/Open64/osprey1.0/be/be
+-I/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/Open64/osprey1.0/targ_ia32_ia64_linux/include
+test-open64.cpp
+In file included from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/UsefulStandard.hpp:28,
+                 from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/InterUseful.hpp:19,
+                 from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/ManagerICFGUseful.hpp:28,
+                 from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/ManagerICFGActive.hpp:24,
+                 from test-open64.cpp:59:
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/DataFlow/DFSetBitImpl.hpp:24:36:
+error: boost/dynamic_bitset.hpp: No such file or directory
+In file included from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/UsefulStandard.hpp:28,
+                 from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/InterUseful.hpp:19,
+                 from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/ManagerICFGUseful.hpp:28,
+                 from
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/Activity/ManagerICFGActive.hpp:24,
+                 from test-open64.cpp:59:
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/DataFlow/DFSetBitImpl.hpp:140:
+error: &#8216;boost&#8217; has not been declared
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/DataFlow/DFSetBitImpl.hpp:140:
+error: ISO C++ forbids declaration of &#8216;dynamic_bitset&#8217; with no type
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/DataFlow/DFSetBitImpl.hpp:140:
+error: expected &#8216;;&#8217; before &#8216;&lt;&#8217; token
+/m_home/m_utkej/Argonne/Dev/AliasTag/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/DataFlow/DFSetBitImpl.hpp:
+In constructor &#8216;OA::DataFl.....
+
+
+Thanks,
+
+Jean
+
+-- 
+Jean Utke
+Argonne National Lab. / MCS
+9700 S Cass Ave., Argonne, IL, 60439, USA
+phone 630 252 4552 / mobile 630 363 5753
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000116.html">[Openanalysis-dev] AliasTag branch - boost question - again
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

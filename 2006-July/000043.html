@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Bug #8130 - This isn't going to be solved	anytime soon.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Bug%20%238130%20-%20This%20isn%27t%20going%20to%20be%20solved%0A%09anytime%20soon.&In-Reply-To=%3Cfbd74aee0607171559q4dede2a2k1467bdddbcf1a733%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000042.html">
+   <LINK REL="Next"  HREF="000044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Bug #8130 - This isn't going to be solved	anytime soon.</H1>
+    <B>Andy Stone</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Bug%20%238130%20-%20This%20isn%27t%20going%20to%20be%20solved%0A%09anytime%20soon.&In-Reply-To=%3Cfbd74aee0607171559q4dede2a2k1467bdddbcf1a733%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] Bug #8130 - This isn't going to be solved	anytime soon.">aistone at gmail.com
+       </A><BR>
+    <I>Tue Jul 18 00:59:02 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000042.html">[Openanalysis-dev] Weekly status report #2, July 10-14
+</A></li>
+        <LI>Next message: <A HREF="000044.html">[Openanalysis-dev] OpenAnalysis revision147
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Priya and Michelle,
+
+Regarding [ Bug #8130 ] &quot;GenOutputTool giving syntax error&quot;.
+
+We've encountered this issue before (Brian discovered it back in
+March, Michelle, you should have a Mar 9 e-mail &quot;GenOutputTool can't
+handle certain types&quot; which discusses this).
+
+Anyway the reason why this bug is coming up is because the way
+genOutputTool works is very naive, it doesn't take into account
+typedefs.
+
+Fixing the current version of genOutputTool to get around this issue
+would be incredibly difficult.  It might be possible to scan a single
+file for all tyepedefs, keeping a record of of them as encountered but
+things get much more tricky when the typedef is declared in another
+header (and I don't even want to think about how scoping would play
+into all of this).
+
+Anyways Priya,
+This is really bad style, sorry :-(, but for now you should be able to
+get around this issue by rewriting line 206 to be:
+
+GENOUT std::map&lt;ProcHandle,OA_ptr&lt;OA::SideEffect::SideEffectStandard&gt;
+&gt;<i>  mProcToSideEffectMap;
+</I>
+Thanks,
+-Andy
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000042.html">[Openanalysis-dev] Weekly status report #2, July 10-14
+</A></li>
+	<LI>Next message: <A HREF="000044.html">[Openanalysis-dev] OpenAnalysis revision147
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

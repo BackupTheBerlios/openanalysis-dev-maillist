@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Useful%20new%20routine%20in%20UseOA-Open64%20and%20MPICFG&In-Reply-To=%3C9ABFF447-B69E-4227-A381-4723506EF029%40cs.colostate.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000092.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Useful%20new%20routine%20in%20UseOA-Open64%20and%20MPICFG&In-Reply-To=%3C9ABFF447-B69E-4227-A381-4723506EF029%40cs.colostate.edu%3E"
+       TITLE="[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG">mstrout at cs.colostate.edu
+       </A><BR>
+    <I>Wed Apr 18 16:57:07 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000092.html">[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Cool!  Thanks Barbara.
+
+-Michelle
+
+On Apr 17, 2007, at 4:40 PM, Barbara Kreaseck wrote:
+
+&gt;<i> I've added a useful new standalong routine to UseOA-Open64
+</I>&gt;<i> (r170) and MPICFG (r357).  It will scan a result *.out file and
+</I>&gt;<i> extract the dot output lines and send them to stdout.  Along
+</I>&gt;<i> the way, it strips out those pesky PRAGMA statements that
+</I>&gt;<i> Open64 inserts into the output stream during the dot output.
+</I>&gt;<i> Those PRAGMA inserts make the direct snarf-and-barf into
+</I>&gt;<i> GraphViz impossible.  No Longer!
+</I>&gt;<i>
+</I>&gt;<i> After a make in an updated UseOA-Open64, you will have an
+</I>&gt;<i> extractDOT executable.  Usage:
+</I>&gt;<i>
+</I>&gt;<i>   extractDOT outputFileName
+</I>&gt;<i>     or
+</I>&gt;<i>   extractDOT outputFileName &gt; outputFileName.dot
+</I>&gt;<i>
+</I>&gt;<i> ex:  extractDOT TestResults/ICFG/functions2.b.out
+</I>&gt;<i>
+</I>&gt;<i> Enjoy!  I know I will not miss having to delete all of the
+</I>&gt;<i> PRAGMAs out of the middle of the statement handles at the top
+</I>&gt;<i> of each subroutine. =)
+</I>&gt;<i>
+</I>&gt;<i> -- Barbara
+</I>&gt;<i>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Openanalysis-dev mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">Openanalysis-dev at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">https://lists.berlios.de/mailman/listinfo/openanalysis-dev</A>
+</I>
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070418/64448c54/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070418/64448c54/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000092.html">[Openanalysis-dev] Useful new routine in UseOA-Open64 and MPICFG
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#93">[ date ]</a>
+              <a href="thread.html#93">[ thread ]</a>
+              <a href="subject.html#93">[ subject ]</a>
+              <a href="author.html#93">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

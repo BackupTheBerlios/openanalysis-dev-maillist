@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] RegressAll status on April 8th 2008
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20RegressAll%20status%20on%20April%208th%202008&In-Reply-To=%3C39e0b340804081045v3e08c96cl3b474116d7806bc4%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000106.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] RegressAll status on April 8th 2008</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20RegressAll%20status%20on%20April%208th%202008&In-Reply-To=%3C39e0b340804081045v3e08c96cl3b474116d7806bc4%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] RegressAll status on April 8th 2008">priyadarshini.malusare at gmail.com
+       </A><BR>
+    <I>Tue Apr  8 19:45:05 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000106.html">[Openanalysis-dev] RegressAll status on April 8th 2008
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Everyone,
+
+Following is the status of regressAll on April 8th until noon.
+I added some comments. Please provide your feedback if
+you think following fixes are necessary. Also would welcome
+any suggestions for the plan how to fix these things.
+
+Regression Status:
+==============
+    OpenAnalysis_AliasTagBranch : revision 761
+
+    UseOA-Open64_AliasTagBranch : revision 299
+            - regressAll works (I just need to get the broad picture)
+
+    SC_AliasTagBranch  : 761
+            - Jan did minor commits recently. I have to make some more
+commits
+            - no regressAll suits at this point.
+            - Should we set up regression tests. ?
+            - It seems some of the files have hand-verfied analysis and some
+of them dont.
+            - But we dont have regression tests, do we expect to have
+              all the analysis handverified results in one file ?
+           - hand-verfied results because Jan wants to know about reference
+outputs
+             once he get analysis working.
+            - What is the priority of this work ?
+
+    UseOA-ROSE
+            - regressAll (I do not have big picture, does Andy knows ? )
+              - FIAliasAliasTag strictlyLocal regress failure
+
+            - regressAll works fine for following testcases:
+              - FIAliasAliasTagReachable.script     (waht is this test for
+?)
+              - AliasIRInterface.script
+              - CallGraph.script
+              - ParamBindings.script
+              - ICFG.script
+              - SideEffect.script
+              - ReachDefs.script
+              - UDDUChains.script
+              - ExprTree.script
+              - Linearity.script
+              - ICFGActivity.script
+              - ICFGReachConsts.script
+
+
+I hope Jan and uwe are the member of mailing list.
+
+Thank You,
+-Priyadarshini.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20080408/479eddc8/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20080408/479eddc8/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000106.html">[Openanalysis-dev] RegressAll status on April 8th 2008
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

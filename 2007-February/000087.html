@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] problem compiling latest Whirl2OA..
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20problem%20compiling%20latest%20Whirl2OA..&In-Reply-To=%3C45E44020.2010809%40mcs.anl.gov%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000086.html">
+   <LINK REL="Next"  HREF="000088.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] problem compiling latest Whirl2OA..</H1>
+    <B>Jean Utke</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20problem%20compiling%20latest%20Whirl2OA..&In-Reply-To=%3C45E44020.2010809%40mcs.anl.gov%3E"
+       TITLE="[Openanalysis-dev] problem compiling latest Whirl2OA..">utke at mcs.anl.gov
+       </A><BR>
+    <I>Tue Feb 27 15:28:48 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000086.html">[Openanalysis-dev] SVN Commit - Location classes seperated
+</A></li>
+        <LI>Next message: <A HREF="000088.html">[Openanalysis-dev] new build for ROSE-0.8.10a on okapi
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#87">[ date ]</a>
+              <a href="thread.html#87">[ thread ]</a>
+              <a href="subject.html#87">[ subject ]</a>
+              <a href="author.html#87">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>with the freshly updated OpenAnalysis trunk
+
+
+g++ -fPIC -D__GNU_BUG_WORKAROUND -c -o Open64IRInterface.o -g -O0 
+-DOA_IRHANDLETYPE_UL -I. 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/OpenAnalysis/x86-Linux/include 
+-D_LANGUAGE_C_PLUS_PLUS -D_DEBUG -D_LINUX_LINUX -D_SGI_SOURCE 
+-D_SVR4_SOURCE -DTARG_IA64 -DCOMPILE_UPC -D_NEW_SYMTAB -D_MIPSEL 
+-D_LONGLONG -D_MIPS_SZINT=32 -D_MIPS_SZPTR=32 -D_MIPS_SZLONG=32 
+-D__MIPS_AND_IA64_ELF_H -DIs_True_On -DMONGOOSE_BE -DBACK_END 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/Open64/osprey1.0/include 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/Open64/osprey1.0/common/com 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/Open64/osprey1.0/common/com/ia64 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/Open64/osprey1.0/common/util 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/Open64/osprey1.0/be/com 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/Open64/osprey1.0/be/be 
+-I/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/Open64/osprey1.0/targ_ia32_ia64_linux/include 
+Open64IRInterface.cpp
+Open64IRInterface.cpp: In member function &#8216;virtual 
+OA::OA_ptr&lt;OA::MemRefExprIterator&gt; 
+Open64IRInterface::getIndepMemRefExprIter(OA::ProcHandle)&#8217;:
+Open64IRInterface.cpp:2939: error: cannot allocate an object of abstract 
+type &#8216;Open64MemRefExprIterator&#8217;
+Open64IRInterface.hpp:399: note: because the following virtual functions 
+are pure within &#8216;Open64MemRefExprIterator&#8217;:
+/m_home/m_utkej/Argonne/cvs/DevOAMigration/OpenAD/OpenAnalysis/x86-Linux/include/OpenAnalysis/MemRefExpr/MemRefExpr.hpp:54: 
+note: int OA::MREIteratorClass&lt;T&gt;::count() const [with T = OA::MemRefExpr]
+
+etc. . Can whoever changed the respective parts last please fix it?
+
+Thanks,
+
+Jean
+
+-- 
+Jean Utke
+Argonne National Lab./MCS
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">utke at mcs.anl.gov</A>
+phone: 630 252 4552 
+cell:  630 363 5753
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000086.html">[Openanalysis-dev] SVN Commit - Location classes seperated
+</A></li>
+	<LI>Next message: <A HREF="000088.html">[Openanalysis-dev] new build for ROSE-0.8.10a on okapi
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#87">[ date ]</a>
+              <a href="thread.html#87">[ thread ]</a>
+              <a href="subject.html#87">[ subject ]</a>
+              <a href="author.html#87">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

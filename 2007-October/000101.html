@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] How does ConstValBasicInterface work?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20How%20does%20ConstValBasicInterface%20work%3F&In-Reply-To=%3CB903713F-C618-4084-A1BB-90914E0BACA0%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] How does ConstValBasicInterface work?</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20How%20does%20ConstValBasicInterface%20work%3F&In-Reply-To=%3CB903713F-C618-4084-A1BB-90914E0BACA0%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] How does ConstValBasicInterface work?">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Fri Oct 26 16:47:46 CEST 2007</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#101">[ date ]</a>
+              <a href="thread.html#101">[ thread ]</a>
+              <a href="subject.html#101">[ subject ]</a>
+              <a href="author.html#101">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Andy,
+
+Good questions, so I thought I would share with the mailing list.
+
+On Oct 25, 2007, at 8:43 PM, Andy Stone wrote:
+
+&gt;<i> Hey Michelle,
+</I>&gt;<i>
+</I>&gt;<i> I'm a bit confused on why ConstValBasicInterface works the way it  
+</I>&gt;<i> does.
+</I>&gt;<i>
+</I>&gt;<i> I thought the purpose of this interface was to provide a way for the
+</I>&gt;<i> target compiler to tell OA whether two values are equivalent or not.
+</I>&gt;<i>
+</I>&gt;<i> If this is the case why are these functions passed
+</I>&gt;<i> ConstValBasicInterface references and not ConstValHandles?
+</I>
+Because a generated value may not have a ConstValHandle or  
+ConstSymHandle associated with it.  Notice that in the  
+ReachConstsIRInterface, the evalOp method takes two  
+ConstValBasicInterfaces and an OpHandle and returns a result.  That  
+result is a ConstValBasicInterface, which probably doesn't currently  
+exist in the AST.
+
+
+&gt;<i>
+</I>&gt;<i> virtual bool operator== (ConstValBasicInterface&amp; other) = 0;
+</I>&gt;<i> virtual bool operator!= (ConstValBasicInterface&amp; other) = 0;
+</I>&gt;<i>
+</I>&gt;<i> Okay, I see, there's a getConstValBasic() function that converts a
+</I>&gt;<i> ConstValHandle to one of these interfaces.  Why are we doing it this
+</I>&gt;<i> way? Wouldn't it be simpler not to instantiate a new interface for
+</I>&gt;<i> each handle?
+</I>&gt;<i>
+</I>&gt;<i> I need to create an OpHandleInterface for my new expression tree
+</I>&gt;<i> classes.  Should I create the interface in a manner similar to
+</I>&gt;<i> ConstValInterface (where a new interface gets instantiate with each
+</I>&gt;<i> call to some function like getOpBasic()?)
+</I>&gt;<i>
+</I>
+That is how we discussed it but based on the above, now it seems to  
+make more sense to just use an OpHandle and have interface routines  
+that know how to compare them?  The comparison operators in the  
+OpNode can then call these interface routines.  Ah I see the  
+problem.  The OpNode doesn't have a reference to the IRInterface I  
+don't think we want it to.  That is why we need a generic OpInterface  
+that knows how to compare itself to other ops.
+
+-Michelle
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20071026/e29d841d/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20071026/e29d841d/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#101">[ date ]</a>
+              <a href="thread.html#101">[ thread ]</a>
+              <a href="subject.html#101">[ subject ]</a>
+              <a href="author.html#101">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

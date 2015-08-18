@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Issues for this week
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Issues%20for%20this%20week&In-Reply-To=%3C39e0b340708201644i686c57b5l4b8241be229d4f0f%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000098.html">
+   <LINK REL="Next"  HREF="000100.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Issues for this week</H1>
+    <B>Priyadarshini Malusare</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Issues%20for%20this%20week&In-Reply-To=%3C39e0b340708201644i686c57b5l4b8241be229d4f0f%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] Issues for this week">priyadarshini.malusare at gmail.com
+       </A><BR>
+    <I>Tue Aug 21 01:44:24 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000098.html">[Openanalysis-dev] test script status
+</A></li>
+        <LI>Next message: <A HREF="000100.html">[Openanalysis-dev] ExprTree for non-call non-assignpair	statements
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#99">[ date ]</a>
+              <a href="thread.html#99">[ thread ]</a>
+              <a href="subject.html#99">[ subject ]</a>
+              <a href="author.html#99">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+With reference to the Discussion with Michelle last week,
+status on various issues.
+
+Jean, I do not see Incorrect output of UDDUChain
+for either boolean expressions or parameters to intrinsics as expressions,
+Please let us know in case you find problems.
+
+<A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/duudChain_20Example">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/duudChain_20Example</A>
+
+
+
+   - run binary expression example, figure out why uddu chains are broken
+   for these
+      - modifications done for UseOA-Open64, Checked Manually, Jean
+      did not get change to verify
+      - broken because MemRefExpr is not properly handled in
+      Open64IRInterface::findAllMemRefExpr....
+      - Added TestCases and TestResults for boolean operations .and.,
+      .or., .not.
+      - committed
+      - determine status of Fortran90 pointers (behave exactly like
+   ISTORE)
+      - Added mStmtToPtrPairs, PtrAssignPairStmtIterator for
+      UseOA-Open64
+      - Created MemRefExpr
+      - Created AssignPairs
+      - Created ExprTree
+      - Output DumpWn
+         -
+         <A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/Fortran_20Pointers">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/Fortran_20Pointers</A>
+      - create --oa-PtrAssign flag in test-open64 to test assignment
+   pairs
+      - Added --oa--PtrAssign flag on both UseOA-Open64 and UseOA-ROSE
+      side. committed
+      - test results of ICFGDep
+      - Added comments,questions for ICFGReachConsts and Linearity.
+      - Ready /AssignPair examples, committed
+      - <A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/AssignPairs_20Example">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/AssignPairs_20Example</A>
+
+      - run examples uddu chain for locals, are uddu chains broken for
+   these?
+      - <A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/duudChain_20Example">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/duudChain_20Example</A>
+
+   - remove the expr_stmt type from everywhere
+      - done
+      - Problem with ICFGReachConsts,
+         - <A HREF="http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/EvalToConstVisitorProblem">http://www-unix.mcs.anl.gov/OpenAnalysisWiki/moin.cgi/EvalToConstVisitorProblem</A>
+         .
+      - commit ICFG activity analysis
+      - done, committed
+      - Modify InterSideEffect::mCallToSideEffectMap
+      - done, committed.
+
+Thanks and Regards,
+-Priyadarshini.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070820/9965c5f6/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20070820/9965c5f6/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000098.html">[Openanalysis-dev] test script status
+</A></li>
+	<LI>Next message: <A HREF="000100.html">[Openanalysis-dev] ExprTree for non-call non-assignpair	statements
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#99">[ date ]</a>
+              <a href="thread.html#99">[ thread ]</a>
+              <a href="subject.html#99">[ subject ]</a>
+              <a href="author.html#99">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

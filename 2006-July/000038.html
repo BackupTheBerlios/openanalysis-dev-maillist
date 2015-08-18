@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] UseOA rev 110/111
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20UseOA%20rev%20110/111&In-Reply-To=%3CPine.LNX.4.44.0607111310001.30145-100000%40cacao.csl.cornell.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000037.html">
+   <LINK REL="Next"  HREF="000039.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] UseOA rev 110/111</H1>
+    <B>Brian White</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20UseOA%20rev%20110/111&In-Reply-To=%3CPine.LNX.4.44.0607111310001.30145-100000%40cacao.csl.cornell.edu%3E"
+       TITLE="[Openanalysis-dev] UseOA rev 110/111">bwhite at csl.cornell.edu
+       </A><BR>
+    <I>Tue Jul 11 19:13:54 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000037.html">[Openanalysis-dev] Re: ICFG question
+</A></li>
+        <LI>Next message: <A HREF="000039.html">[Openanalysis-dev] Re: WN* and ST* (in UseOA-Open64)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I've just committed revision 111, though I decided to name it 110.
+
+Would folks mind ending their ChangeLog entry with something that
+indicates what version of ROSE and OpenAnalysis they used to pass
+regressAll?  Like:
+
+   - Passes regressAll using ROSE-0.8.7a and OpenAnalysis revision 139.
+
+This revision fixes some things I am doing with the
+staticVirtualMethodResolver and three bugs:
+
+[Bug #8092] Return statements that don't return anything cause assertion
+[Bug #8082] UnnamedRefs and PtrAssigns needed at string inits
+[Bug #7964] Problems with var args
+
+I've included the full bug reports in the ChangeLog below.
+
+Thanks,
+Brian
+
+7/10/06  UseOA-Rose svn tag trunk r110 Brian White
+    - Changes to staticVirtualMethodResolver
+      - matchingMemberFunctions now compares a stringified version of
+        two methods' return types, rather than the SgNode return types.
+      - Changed &quot;accounting&quot; of number of possible virtual method
+resolutions
+	and a callsite-- a pure virtual method is no longer considered
+        a possible resolution (since it can not be invoked).
+        Is this correct?  Notice that an alias analysis would count
+        this.  e.g., if Parent::foo() is pure virtual and Kid1::foo()
+        and Kid2::foo() implement it, then an invocation of foo through
+        a pointer has 2 possible resolutions, rather than 3.
+    - Fixed [Bug #8092] Return statements that don't return anything cause
+      assertion
+
+      Details: Here is an example of where this happens.
+      ./OATest -edg:w --oa-ParamBindings -c
+TestCases/ParamBindings/qsort1.c
+      Looks like the logic in SageIRInterface::getAliasStmtType needs
+modified.
+
+
+      Follow-Ups:
+
+      Date: 2006-Jul-11 09:35
+      By: bwhite
+
+      Comment:
+
+      An assertion in the V_SgReturnStmt case in
+SageIRInterface::getAliasStmtType
+      was failing.  I was asserting that the return expression from a
+return
+      statement was non-NULL.  This is not true for a void function.
+Changed
+      the assertion to an if.
+
+      Passes qsort1.c
+    - Fixed [Bug #8082] UnnamedRefs and PtrAssigns needed at string inits
+      Details: When I run the following:
+      ./CtoOA TestCases/AliasTests/passArrayPtr.c
+
+      the following statement:
+          char a[] = &quot;testing&quot;;
+      gets only one MEMREFEXPR:
+          MEMREFEXPRS = { StmtHandle(&quot;char a[] = &quot;testing&quot;;&quot;) =&gt;
+              [
+                  MemRefHandle(&quot;a&quot;) =&gt;
+                      NamedRef( DEF, SymHandle(&quot;a&quot;), F, full)
+              ] }
+      There needs to be an UnnamedRef for the &quot;testing&quot; string and a
+PtrAssign
+      otherwise the alias analysis will have *a and anything that aliases
+it
+      access UnknownLoc.
+
+
+
+      Follow-Ups:
+
+      Date: 2006-Jul-11 09:47
+      By: bwhite
+
+      Comment:
+
+      Added case in SageIRMemRefIterator::findAllMemRefsAndMemRefExprs to
+      create a MemRefExpr for strings (case V_SgStringVal).  The
+MemRefExpr so
+      create mirrors that created for new/malloc-- it is inaccurate (since
+we
+      don't accurately model the statement context) and addressTaken =
+true
+      since it generates an address.
+
+      To create the pointer assignment pair, changed conditional in
+      SageIRInterface::initializerHasPtrAssign which returned false if the
+      type of the lhs was not a pointer or reference so that it doesn't
+return
+      false if the lhs is an array (i.e., SgArrayType).
+
+      ./CtoOA TestCases/AliasTests/passArrayPtr.c now gives the following
+for
+      the string case:
+
+          MEMREFEXPRS = { StmtHandle(&quot;char a[] = &quot;testing&quot;;&quot;) =&gt;
+              [
+                  MemRefHandle(&quot;a&quot;) =&gt;
+                      NamedRef( DEF, SymHandle(&quot;a&quot;), F, full)
+                  MemRefHandle(&quot;&quot;testing&quot;&quot;) =&gt;
+                      UnnamedRef( USE, StmtHandle(&quot;&quot;testing&quot;&quot;), T, part)
+              ] }
+          PTRASSIGNPAIRS = { StmtHandle(&quot;char a[] = &quot;testing&quot;;&quot;) =&gt;
+              [
+                  &lt; NamedRef( DEF, SymHandle(&quot;a&quot;), F, full)
+                  , UnnamedRef( USE, StmtHandle(&quot;&quot;testing&quot;&quot;), T, part) &gt;
+              ] }
+    - passed passArrayPtr.c and added to regressAliasIRInterface
+      to test above bug fix.
+    - Fixed [Bug #7964] Problems with var args
+      Details: ./CtoOA TestCases/AliasTests/parambinds-formals.C
+
+          PARAMBINDPTRASSIGNPAIRS = {
+CallHandle(&quot;ellipsis_intptrs(3,&amp;x,&amp;y,&amp;z)&quot;) =&gt;
+              [
+                  &lt; 2, NamedRef( USE, SymHandle(&quot;y&quot;), T, full) &gt;
+                  &lt; 3, NamedRef( USE, SymHandle(&quot;z&quot;), T, full) &gt;
+              ] }
+
+      PROCEDURE = { &lt; ProcHandle(&quot;ellipsis_intptrs&quot;),
+SymHandle(&quot;ellipsis_intptrs&quot;) &gt;
+      }
+          FORMALS = {
+              [
+                  &lt; 0, SymHandle(&quot;x&quot;) &gt;
+                  &lt; 1, SymHandle(&quot;&quot;) &gt;
+              ] }
+
+      Two problems:
+              1) where is &amp;x in the PARAMBINDPTRASSIGNPAIRS?
+              2) bigger problem: the number of formals don't match the
+number
+                 of actuals
+
+      Possible solutions for (2)
+      Brian and Andy both suggested modeling this as passing in one
+structure
+      that contains everything.  This would merge everything being passed
+in
+      but I think that is ok.
+
+                &lt; 1, NamedRef( USE, SymHandle(&quot;x&quot;), T, full) &gt;
+                &lt; 1, NamedRef( USE, SymHandle(&quot;y&quot;), T, full) &gt;
+                &lt; 1, NamedRef( USE, SymHandle(&quot;z&quot;), T, full) &gt;
+
+
+      Follow-Ups:
+
+      Date: 2006-Jul-11 12:59
+      By: bwhite
+
+      Comment:
+
+      The first vararg was not being considered for
+param-bind-ptr-assigns:
+      We only create param bindings
+      for pointers/references.  However, for var args we can
+      not get the type from the formal, so we need to look at
+      the actual.  SgParamBindPtrAssignIterator::create was
+      correctly looking at the actual type in the formal was
+      NULL or SgTypeEllipse.  Unfortunately, it would then
+      set the type we are considering to the formal type
+      anyway, if the we were not at the end of the formal
+      list.  This only affected the first vararg, since
+      at the second and subsequent varargs, we had
+      reached/exceeded the end of the formal list
+      and therefore could not get the type from it.
+
+      Also assigned each actual corresponding
+      to a vararg in the param-bind-ptr-assign-pairs
+      to the same formal parameter number--
+      namely the number corresponding to '...'.
+
+      After this fix, we get 'x' listed in the
+      param-bind-ptr-assign-pairs and have
+      all actuals bound to formal 1:
+
+          PARAMBINDPTRASSIGNPAIRS = {
+CallHandle(&quot;ellipsis_intptrs(3,&amp;x,&amp;y,&amp;z)&quot;) =&gt;
+              [
+                  &lt; 1, NamedRef( USE, SymHandle(&quot;x&quot;), T, full) &gt;
+                  &lt; 1, NamedRef( USE, SymHandle(&quot;y&quot;), T, full) &gt;
+                  &lt; 1, NamedRef( USE, SymHandle(&quot;z&quot;), T, full) &gt;
+              ] }
+
+      This functionality is tested by parambinds-formals-intPtrs.C,
+      which is a subset of parambinds-formals.C.
+    - added parambinds-formals-intPtrs.C to test above bug fix.
+    - Passes regressAll using ROSE-0.8.7a and OpenAnalysis revision 139.
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000037.html">[Openanalysis-dev] Re: ICFG question
+</A></li>
+	<LI>Next message: <A HREF="000039.html">[Openanalysis-dev] Re: WN* and ST* (in UseOA-Open64)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

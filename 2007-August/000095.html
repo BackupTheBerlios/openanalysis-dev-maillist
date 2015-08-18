@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] regression diffs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20regression%20diffs&In-Reply-To=%3C46BAA467.5060104%40mcs.anl.gov%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000096.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] regression diffs</H1>
+    <B>Jean Utke</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20regression%20diffs&In-Reply-To=%3C46BAA467.5060104%40mcs.anl.gov%3E"
+       TITLE="[Openanalysis-dev] regression diffs">utke at mcs.anl.gov
+       </A><BR>
+    <I>Thu Aug  9 07:21:43 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000096.html">[Openanalysis-dev] regression diffs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I wanted to commit some changes to Whirls2OA but in the original
+regressAll has plenty of diffs  in
+Testing TestCases/SideEffect/test.B, TestResults/SideEffect/test.B.out 
+Checked by BK 7/27/2006
+Testing TestCases/SideEffect/Jean2.B, TestResults/SideEffect/Jean2.B.out 
+Checked by BK 7/27/2007
+Testing TestCases/ReachConsts/constprop_if1a.B, 
+TestResults/ReachConsts/constprop_if1a.B.out Checked by BK 08/29/06
+Testing TestCases/ReachConsts/constprop_if1.B, 
+TestResults/ReachConsts/constprop_if1.B.out Checked by BK 08/29/06
+etc for all reach const cases:
+&lt;                             ConstDefSet:
+---
+ &gt;                             ConstDef:
+and also for
+Testing TestCases/ReachConsts/constprop_if1a.B, 
+TestResults/ICFGReachConsts/constprop_if1a.B.out Checked by BK 08/29/06
+etc.
+Not sure who needs to fix this. 
+Anyway - once I get the ok from one of you I will commit my Whirl2OA 
+changes. Basically one of the cleanup actions I meant to
+put into mfef90 has to be postponed until we read the generated IR.
+So I added the cleanup stuff to the Open64IRInterface as part ot ReadIR.
+
+Jean
+
+-- 
+Jean Utke
+Argonne National Lab./MCS
+<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">utke at mcs.anl.gov</A>
+phone: 630 252 4552 
+cell:  630 363 5753
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000096.html">[Openanalysis-dev] regression diffs
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

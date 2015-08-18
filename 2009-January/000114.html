@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] About OpenAnalsis + ROSE integrations!
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20About%20OpenAnalsis%20%2B%20ROSE%20integrations%21&In-Reply-To=%3CE0436525-7D9B-49F6-89AD-15BA6E3B76E6%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000113.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] About OpenAnalsis + ROSE integrations!</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20About%20OpenAnalsis%20%2B%20ROSE%20integrations%21&In-Reply-To=%3CE0436525-7D9B-49F6-89AD-15BA6E3B76E6%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] About OpenAnalsis + ROSE integrations!">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Tue Jan 20 17:43:44 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000113.html">[Openanalysis-dev] OA &amp; ROSE
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Simone,
+
+On Jan 20, 2009, at 3:25 AM, Simone Pellegrini wrote:
+
+&gt;<i> Dear Michelle,
+</I>&gt;<i> my name is Simone Pellegrini and I am a PhD student from the  
+</I>&gt;<i> university of Innsbruck. My research topic is related to parallel  
+</I>&gt;<i> programs optimization, practically we want to optimize existing  
+</I>&gt;<i> parallel programs by applying some well known transformations (like  
+</I>&gt;<i> MPI statements movement... optimization of MPI collective  
+</I>&gt;<i> operations, etc...) in a fully automatic way.
+</I>&gt;<i>
+</I>&gt;<i> In order to do that, we need to perform static program analysis in  
+</I>&gt;<i> oder to see where the dependencies are and how to transform the  
+</I>&gt;<i> original code without any change to the semantics. The research I  
+</I>&gt;<i> have done about source-to-source transformations... and program  
+</I>&gt;<i> analysis bring me to these 2 tools, ROSE and OpenAnalysis. In the  
+</I>&gt;<i> Rose mailing list I've asked more details about the Rose to OA  
+</I>&gt;<i> integration and they gave me a pointer to you. Can you give me some  
+</I>&gt;<i> pointers about this integration? Is it working? or just a work-in- 
+</I>&gt;<i> progress!?
+</I>
+At this point I would categorize the connection between OA and ROSE  
+(UseOA-ROSE) as a work in progress.
+
+&gt;<i> This is a very important step for us, we have to choose a tool and  
+</I>&gt;<i> this will influence all our research and our results. If we choose a  
+</I>&gt;<i> transformation tool which is not able to parse most of the existing  
+</I>&gt;<i> production source codes... our work will be worth nothing. Actually  
+</I>&gt;<i> the integrated program analysis implemented in Rose is not so good  
+</I>&gt;<i> (a lot of bugs) and OA seems to be better (on the paper)... but I  
+</I>&gt;<i> have no idea about how much stable it is... and if it can be used  
+</I>&gt;<i> with very complex code or use small code pieces.
+</I>
+Yes it is difficult to find a good tool.  If you want a C++ source-to- 
+source tool that can handle most of C++ then ROSE might be your best  
+bet.  The analysis piece is still being developed, therefore it  
+probably is not as robust as you would like right now.
+
+On Jan 14, 2009, at 3:25 AM, Simone Pellegrini wrote:
+
+&gt;<i> We need a frontend capable to parse C/C++ and Fortran source files. We
+</I>&gt;<i> looked inside ROSE... but we are encountering a lot of problems with  
+</I>&gt;<i> the
+</I>&gt;<i> integrated analysis (bugs... slow...). I saw you claims that OA can be
+</I>&gt;<i> used with ROSE, where can I find informations about this?  
+</I>&gt;<i> Furthermore we
+</I>&gt;<i> are considering other ways... we also looked inside the LLVM project,
+</I>&gt;<i> actually the Clang compiler, but as far it is a compiler, clang is not
+</I>&gt;<i> meant to be used as a source-to-source compiler. Probably the best
+</I>&gt;<i> option would be to work with the LLVM intermediate representation  
+</I>&gt;<i> and I
+</I>&gt;<i> have heard that OA can be used also with the LLVM Bytecode. How can I
+</I>&gt;<i> get more details about the current status of integration?
+</I>
+
+OA could hook up to LLVM but it doesn't.  Analysis in general should  
+be easier in LLVM because the representation is lower-level  
+(essentially typed 3-address code).  It might be difficult to do  
+source-to-source compilation with LLVM.
+
+If you find a tool that satisfies your requirements fully, please let  
+me know.  =)
+
+Cheers,
+-Michelle
+
+==================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-4193
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+==================================
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000113.html">[Openanalysis-dev] OA &amp; ROSE
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Merged UseOA-ROSE memRefExprRefactor branch into	trunk
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-October/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Merged%20UseOA-ROSE%20memRefExprRefactor%20branch%20into%0A%09trunk&In-Reply-To=%3C41A7647B-60DF-424A-B448-382A7F4CBD38%40cs.colostate.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000072.html">
+   <LINK REL="Next"  HREF="000074.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Merged UseOA-ROSE memRefExprRefactor branch into	trunk</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Merged%20UseOA-ROSE%20memRefExprRefactor%20branch%20into%0A%09trunk&In-Reply-To=%3C41A7647B-60DF-424A-B448-382A7F4CBD38%40cs.colostate.edu%3E"
+       TITLE="[Openanalysis-dev] Merged UseOA-ROSE memRefExprRefactor branch into	trunk">mstrout at cs.colostate.edu
+       </A><BR>
+    <I>Sat Oct 21 21:05:25 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000072.html">[Openanalysis-dev] September OA Meeting Conclusions
+</A></li>
+        <LI>Next message: <A HREF="000074.html">[Openanalysis-dev] problem with Sage2OA.h:toString(const	OA::StmtHandle h) line number 603
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#73">[ date ]</a>
+              <a href="thread.html#73">[ thread ]</a>
+              <a href="subject.html#73">[ subject ]</a>
+              <a href="author.html#73">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Everyone should start working with the UseOA-ROSE trunk now.  Top on  
+Priya's list will be to get the regression tests working that are  
+currently broken.  See the log entry for what needs fixed.
+
+The merge includes some upgrades to the makefiles.  Andy is working  
+on getting the docs up on the wiki, but here is the script I used on  
+okapi to get this guy to compile.  Notice especially that on okapi  
+everything needs to be compiled with gcc 3.2.  Also, notice that I  
+just installed a new version of ROSE.
+
+Thanks,
+Michelle
+
+setenv GCCDIR /home/software/gcc-3.2
+setenv GCCVER 3.2
+
+setenv CC $GCCDIR/bin/gcc
+setenv CXX $GCCDIR/bin/g++
+#setenv CXXFLAGS '-fpermissive'
+unalias gcc
+unalias g++
+
+# Do not modify next two lines
+set path=($GCCDIR/bin $GCCDIR/lib $path)
+if ($?LD_LIBRARY_PATH) then
+   setenv LD_LIBRARY_PATH $GCCDIR/lib:$LD_LIBRARY_PATH
+else
+   setenv LD_LIBRARY_PATH $GCCDIR/lib
+endif
+
+# Specifies what debugging &amp; profile flags are sent to the compiler
+# and linker
+#PROFILE_OPTIONS = -O0 -g -pg
+setenv PROFILE_OPTIONS '-O0 -g'
+#PROFILE_OPTIONS =
+
+# Top-level UseOA source directory
+#setenv topsrcdir /home/mstrout/oadev/rose/gcc-3.2/UseOA-ROSE
+setenv USEOA_ROSE_USEOAROSEDIR /home/mstrout/oadev/rose/gcc-3.2/UseOA- 
+ROSE
+
+# Root of ROSE installation
+#setenv ROSE_INST_ROOT /home/mstrout/ROSE/rose-0.8.7a/compile-gcc-3.2
+setenv USEOA_ROSE_ROSEDIR /home/mstrout/ROSE/rose-0.8.9a/compile-gcc-3.2
+
+# OpenAnalysis variables
+#setenv OPENANALYSIS_DIR /home/mstrout/oadev/rose/gcc-3.2/OpenAnalysis
+setenv USEOA_ROSE_OADIR /home/mstrout/oadev/rose/gcc-3.2/OpenAnalysis
+
+setenv USEOA_ROSE_ARCH x86-Linux
+#setenv OPENANALYSIS_ARCH i686-Linux
+#OPENANALYSIS_ARCH=opteron-Linux
+
+# Compiler/linker
+setenv CXX g++
+setenv CXXLD g++
+setenv CXXFLAGS '-g -O0'
+setenv USEOA_ROSE_CXXFLAGS '-g -O0'
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20061021/d83dd34f/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20061021/d83dd34f/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000072.html">[Openanalysis-dev] September OA Meeting Conclusions
+</A></li>
+	<LI>Next message: <A HREF="000074.html">[Openanalysis-dev] problem with Sage2OA.h:toString(const	OA::StmtHandle h) line number 603
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#73">[ date ]</a>
+              <a href="thread.html#73">[ thread ]</a>
+              <a href="subject.html#73">[ subject ]</a>
+              <a href="author.html#73">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

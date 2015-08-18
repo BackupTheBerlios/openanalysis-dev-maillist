@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Re: WN* and ST* (in UseOA-Open64)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Re%3A%20WN%2A%20and%20ST%2A%20%28in%20UseOA-Open64%29&In-Reply-To=%3C8A707869-AC6D-4ABD-9C80-B0408CD747F8%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000038.html">
+   <LINK REL="Next"  HREF="000040.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Re: WN* and ST* (in UseOA-Open64)</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Re%3A%20WN%2A%20and%20ST%2A%20%28in%20UseOA-Open64%29&In-Reply-To=%3C8A707869-AC6D-4ABD-9C80-B0408CD747F8%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] Re: WN* and ST* (in UseOA-Open64)">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Tue Jul 11 20:28:49 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000038.html">[Openanalysis-dev] UseOA rev 110/111
+</A></li>
+        <LI>Next message: <A HREF="000040.html">[Openanalysis-dev] regressAll Works!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#39">[ date ]</a>
+              <a href="thread.html#39">[ thread ]</a>
+              <a href="subject.html#39">[ subject ]</a>
+              <a href="author.html#39">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Andy,
+
+WN* is a pointer to a Whirl Node, which is conceptually similar to  
+SgNode*.
+ST* is a pointer to a symbol table entry.
+
+In createAndMapNamedRef, the wn parameter is the MemRefHandle we are  
+constructing a MemRefExpr for.  The st parameter is what we turn into  
+a SymHandle.
+
+Note that you don't need to do any of that fully_qualified_name stuff  
+in UseOA-ROSE.  That is a hack to deal with Open64 weirdness.
+
+Just so everyone is on the same page, Andy is doing a refactor of the  
+findAllMemRefExprs functionality in UseOA-ROSE to match the refactor  
+I did in UseOA-Open64.
+
+-Michelle
+
+On Jul 11, 2006, at 12:15 PM, Andy Stone wrote:
+
+&gt;<i> Hey Michelle,
+</I>&gt;<i>
+</I>&gt;<i> WN* wn,
+</I>&gt;<i> ST* st
+</I>&gt;<i>
+</I>&gt;<i> These appear everywhere in the Open64 IR Interface.  I'm guessing
+</I>&gt;<i> they're IR handles, but to what.  What do these variables mean?  What
+</I>&gt;<i> would the analogy to ROSE be (SageNode*)?
+</I>&gt;<i>
+</I>&gt;<i> Particularly what do they mean in the context of this function:
+</I>&gt;<i>
+</I>&gt;<i> void Open64IRInterface::createAndMapNamedRef(OA::StmtHandle stmt,  
+</I>&gt;<i> WN* wn,
+</I>&gt;<i>    ST* st, bool isAddrOf, bool fullAccuracy,  
+</I>&gt;<i> OA::MemRefExpr::MemRefType hty)
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> -Andy
+</I>
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060711/48d10fa3/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060711/48d10fa3/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000038.html">[Openanalysis-dev] UseOA rev 110/111
+</A></li>
+	<LI>Next message: <A HREF="000040.html">[Openanalysis-dev] regressAll Works!
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#39">[ date ]</a>
+              <a href="thread.html#39">[ thread ]</a>
+              <a href="subject.html#39">[ subject ]</a>
+              <a href="author.html#39">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

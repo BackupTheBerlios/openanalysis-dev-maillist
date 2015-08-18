@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Weekly status report #1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Weekly%20status%20report%20%231&In-Reply-To=%3C669FFC13-7600-437C-B3DA-15BE6D113069%40CS.ColoState.EDU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000033.html">
+   <LINK REL="Next"  HREF="000036.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Weekly status report #1</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Weekly%20status%20report%20%231&In-Reply-To=%3C669FFC13-7600-437C-B3DA-15BE6D113069%40CS.ColoState.EDU%3E"
+       TITLE="[Openanalysis-dev] Weekly status report #1">mstrout at CS.ColoState.EDU
+       </A><BR>
+    <I>Mon Jul 10 21:06:45 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000033.html">Fwd: [Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+        <LI>Next message: <A HREF="000036.html">[Openanalysis-dev] Weekly status report #1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello all,
+
+So that everyone is seeing more of the big picture, I have decided to  
+send out a weekly status report that summarizes what got done last  
+week, what the goals are for next week, and the current status on bugs.
+
+======
+July 3-7
+======
+This week was only a partial week due to the July 4th holiday.  Also,  
+keep in mind that some folks are just getting up-to-speed.
+
+Accomplishments for the week
+-------------------------------------------
+- Barbara added functionality to the CallGraph and tested that  
+functionality in light of function ptrs.  She also helped Luis with  
+Linearity Analysis understanding and found some bugs in the Linearity  
+Paper. =)
+- Luis fixed a newline problem we had in the DOT output builder and  
+made good progress on the data structures needed for linearity analysis.
+- Priya fixed ParamBindings and tested it.
+- Brian fixed bugs 7962 and 7317 in UseOA-ROSE.
+- Andy helped me implement isParam() in UseOA-ROSE.  He also created  
+a branch MemRefExprComparisonChange to test the performance  
+difference of OpenAnalysis upon his change to the comparison  
+operators in Location and MemRefExpr.  Is this the right branch  
+name?  Andy also added some notes on updating the OA web pages to the  
+wiki.
+
+Goals for this week
+-------------------------------------------
+- Barbara should aim to finish the ICFG construction that takes  
+function ptrs into account and fix and test ManagerICFGDep.
+- Luis should aim to have a driver that calls his linearity data  
+structures with information that would be derived from the example in  
+the paper.
+- Priya is just starting at Argonne this week.  She should aim to  
+have Side Effect analysis fixed and the html2latex stuff figured out.
+- Brian would like to have the modeling of implicit constructor calls  
+done by the end of the week, but it depends on some ROSE issues.
+- Andy and I will be discussing his goals in an hour.
+
+Plan for fixing Bugs
+-------------------------------------------
+- UseOA-ROSE #8092, Brian do you think you can fix the return problem  
+this week?  Can we just comment out the assert as Andy did?
+- UseOA-ROSE #8085, I aim to fix this one this week
+- UseOA-ROSE #8082, Brian is working on this I think
+- UseOA-ROSE #7964, Brian is working on this I think
+
+- OA #8060, we are going to fix this with a refactor of the graph  
+classes, looks like it doesn't show up on older g++ compilers.  For  
+now just commenting out delete in OA_ptr.hpp
+- OA #8068, Andy did you fix this one?
+
+-Michelle
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060710/3aeff8d0/attachment.html">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060710/3aeff8d0/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000033.html">Fwd: [Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+	<LI>Next message: <A HREF="000036.html">[Openanalysis-dev] Weekly status report #1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

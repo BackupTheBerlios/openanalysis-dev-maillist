@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Proposed graph classes refactor to fix OA Bug 008060
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Proposed%20graph%20classes%20refactor%20to%20fix%20OA%20Bug%20008060&In-Reply-To=%3CDFA01AA9-D845-4464-84F6-BFD8048C0417%40cs.colostate.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000024.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Proposed graph classes refactor to fix OA Bug 008060</H1>
+    <B>Michelle Strout</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Proposed%20graph%20classes%20refactor%20to%20fix%20OA%20Bug%20008060&In-Reply-To=%3CDFA01AA9-D845-4464-84F6-BFD8048C0417%40cs.colostate.edu%3E"
+       TITLE="[Openanalysis-dev] Proposed graph classes refactor to fix OA Bug 008060">mstrout at cs.colostate.edu
+       </A><BR>
+    <I>Tue Jul  4 19:50:48 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000024.html">[Openanalysis-dev] Re: [Bug #7962] Member fields, methods, and functions should be non-local
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[Openanalysis-dev] Change in UseOA-ROSE build process
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello all,
+
+Yesterday I posted bug 008060 to OpenAnalysis.  The attached file  
+nested-multipleInheritance-diffconst.cpp shows what is causing this  
+bug.  It is a combination of nested classes, a convoluted class  
+hierarchy with multiple inheritance, and constructors that take a  
+parameter.  If I remove the class nesting or get rid of the DG class  
+(which models DGStandard), or only have default constructors, the  
+problem goes away.  I would like to propose temporarily solving this  
+bug by commenting out the delete mPtr in OA_ptr.hpp.  This means that  
+OA will start leaking memory all over the place.  Andy will want to  
+uncomment it so that memory problems don't affect his performance.
+
+I also propose we solve this bug by refactoring the graph classes.  I  
+have finally had it with these classes, and with Priya on board I am  
+willing to do a rewrite.  I have attached a prototype class hierarchy  
+both in UML form and in C++ code that actually compiles.  Note that  
+the Edge classes will have the same inheritance relationship that is  
+shown on the Node classes.  The approach will be that Priya will  
+create a branch to do the refactor.  When she has it tested with a  
+TestGraph class (would have inheritance relationships similar to  
+CFG), she will bring in all the regression tests we currently have  
+and make sure that those work.  Therefore, if you want to make sure  
+your stuff works the same after the refactor, then add more  
+regression tests.
+
+Any comments or suggestions are welcome.  I don't plan on having  
+Priya start this until the end of the week.  I plan on putting more  
+info about this on the wiki as I make progress through my code  
+inspection of the current system.
+
+Thanks,
+Michelle
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: class-hierarchy.pdf
+Type: application/pdf
+Size: 45793 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060704/27b86cfd/attachment.pdf">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060704/27b86cfd/attachment.pdf</A>&gt;
+-------------- next part --------------
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: DGraph-ver1.cpp
+Type: application/octet-stream
+Size: 9703 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060704/27b86cfd/attachment.obj">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060704/27b86cfd/attachment.obj</A>&gt;
+-------------- next part --------------
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: OA_ptr.hpp
+Type: application/octet-stream
+Size: 9691 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060704/27b86cfd/attachment-0001.obj">https://lists.berlios.de/pipermail/openanalysis-dev/attachments/20060704/27b86cfd/attachment-0001.obj</A>&gt;
+-------------- next part --------------
+
+&quot;g++ DGraph-ver1.cpp&quot; should compile as long as you download both  
+files and put them in the same dir.
+
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+
+
+
+=======================================
+  Michelle Mills Strout
+  Assistant Professor
+
+  Colorado State University
+  Computer Science Department
+  1873 Campus Delivery
+  Fort Collins, CO 80523-1873
+
+  (970) 491-7026
+  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+=======================================
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000024.html">[Openanalysis-dev] Re: [Bug #7962] Member fields, methods, and functions should be non-local
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[Openanalysis-dev] Change in UseOA-ROSE build process
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>

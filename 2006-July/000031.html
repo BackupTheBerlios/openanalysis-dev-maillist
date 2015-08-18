@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openanalysis-dev] Bug 8092 in UseOA-ROSE
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openanalysis-dev/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Bug%208092%20in%20UseOA-ROSE&In-Reply-To=%3Cfbd74aee0607100930i754f1a79u569a4cf1a13602b9%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000029.html">
+   <LINK REL="Next"  HREF="000032.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openanalysis-dev] Bug 8092 in UseOA-ROSE</H1>
+    <B>Andy Stone</B> 
+    <A HREF="mailto:openanalysis-dev%40lists.berlios.de?Subject=Re%3A%20%5BOpenanalysis-dev%5D%20Bug%208092%20in%20UseOA-ROSE&In-Reply-To=%3Cfbd74aee0607100930i754f1a79u569a4cf1a13602b9%40mail.gmail.com%3E"
+       TITLE="[Openanalysis-dev] Bug 8092 in UseOA-ROSE">aistone at gmail.com
+       </A><BR>
+    <I>Mon Jul 10 18:30:03 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000029.html">[Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+        <LI>Next message: <A HREF="000032.html">[Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Michelle,
+
+I haven't encountered this error before.  I know the old version of
+Rose (0.8.7a) had difficulties with functions that should return
+something but don't, like:
+
+int main(char argc, char *argv[]) {
+   doSomething();
+}
+
+But it does work with functions that return nothing like this:
+
+void foo() {
+   if( doSomething() ) { return; }
+}
+
+I don't know if that's related to your issue at all.
+
+-Andy
+
+On 7/7/06, Michelle Strout &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> I just submitted a bug about return statements that don't return anything.
+</I>&gt;<i> This is probably something for Brian to fix, but Andy did you run into this
+</I>&gt;<i> with your SMP2000 benchmark?
+</I>&gt;<i>
+</I>&gt;<i> Thanks,
+</I>&gt;<i> Michelle
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> =======================================
+</I>&gt;<i>  Michelle Mills Strout
+</I>&gt;<i>  Assistant Professor
+</I>&gt;<i>
+</I>&gt;<i>  Colorado State University
+</I>&gt;<i>  Computer Science Department
+</I>&gt;<i>  1873 Campus Delivery
+</I>&gt;<i>  Fort Collins, CO 80523-1873
+</I>&gt;<i>
+</I>&gt;<i>  (970) 491-7026
+</I>&gt;<i>  <A HREF="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">mstrout at cs.colostate.edu</A>
+</I>&gt;<i> =======================================
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000029.html">[Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+	<LI>Next message: <A HREF="000032.html">[Openanalysis-dev] Bug 8092 in UseOA-ROSE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openanalysis-dev">More information about the Openanalysis-dev
+mailing list</a><br>
+</body></html>
